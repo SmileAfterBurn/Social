@@ -1,7 +1,6 @@
 SmileAfterBurn. Social Projects
  * © 2026 Ілля Чернов. Усі права захищено.
  * Розробник: Ілля Чернов
- */
 <div align="center">  
 <img width="800" height="200" alt="SmileAfterBurn Банер" src="https://github.com/SmileAfterBurn/SmileAfterBurn/blob/main/SAfB%20Baner.svg">
 </div>  
