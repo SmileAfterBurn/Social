@@ -1,0 +1,12 @@
+{
+  "name": "Інклюзивна мапа України v1.3.1",
+  "version": "1.3.1",
+  "author": "Ілля Чернов",
+  "description": "Єдиний реєстр соціальних послуг з ШІ Gemini 3 Pro (Deep Thinking) та інтеграцією Live API.",
+  "apiStyle": "REST/WebSocket",
+  "buildHash": "deployed-v1.3.1-final",
+  "requestFramePermissions": [
+    "geolocation",
+    "microphone"
+  ]
+}
