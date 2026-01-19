@@ -106,7 +106,7 @@ SmileAfterBurn. Social Projects
 ## 📞 Контакти  
 
 - **GitHub:** [SmileAfterBurn](https://github.com/SmileAfterBurn)  
-- **Email:** illia.chernov@posmishka.org.ua  
+- **Email:** chernov.illia@icloud.com 
 
 ---
 
@@ -190,7 +190,7 @@ Ways to Contribute
 ________________________________________
 📞 Contacts
 •	GitHub: SmileAfterBurn
-•	Email: illia.chernov@posmishka.org.ua
+•	Email: chernov.illia@icloud.com
 ________________________________________
 📝 License
 This project is distributed under the MIT License. See LICENSE for details.
