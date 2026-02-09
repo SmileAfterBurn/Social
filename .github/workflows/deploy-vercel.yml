@@ -1,0 +1,33 @@
+name: CI / Build and Deploy (Vercel)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Vercel (using CLI)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # Requires secret VERCEL_TOKEN created in Vercel Dashboard -> Tokens
+          npx vercel --prod --token "$VERCEL_TOKEN" --confirm
+
+# Notes:
+# - Recommended: connect GitHub repo to Vercel (Git Integration) for automatic deploys.
+# - Alternatively, create a Vercel token (Account -> Tokens) and add it as repo secret VERCEL_TOKEN.

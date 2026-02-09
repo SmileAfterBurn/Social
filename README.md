@@ -113,9 +113,10 @@ SmileAfterBurn. Social Projects
 ## 🌐 Публічний домен
 
 - **Сайт:** https://соціальна-мапа-турботи.in.ua  
-- **Firebase Hosting site:** `social-map-of-care`  
-- **Інструкції підключення/DNS:** див. `DOMAIN.md` (додано у репозиторій)  
-- **CI/CD:** Для автоматичного деплою додайте GitHub Secrets `FIREBASE_TOKEN` (обов'язково) та опціонально `FIREBASE_PROJECT` (project id). Щоб згенерувати токен локально: встановіть Firebase CLI і виконайте `firebase login:ci`. У репозиторії є приклад workflow: `.github/workflows/deploy-firebase.yml`.
+- **Hosting:** Vercel (рекомендовано). Якщо ви використовуєте Firebase — див. `DOMAIN.md`.
+- **Інструкції підключення/DNS:** див. `DOMAIN.md`, `DNS_CHANGES.md` та `VERCEL.md`.
+- **CI/CD:** Для автоматичного деплою на Vercel додайте GitHub Secret `VERCEL_TOKEN` (створюється в Vercel Dashboard → Tokens). Приклад workflow: `.github/workflows/deploy-vercel.yml`. Також можна підключити репозиторій безпосередньо у Vercel Dashboard (Git Integration) для автоматичних деплоїв.
+- **Firebase:** У репозиторії збережено приклад workflow для Firebase: `.github/workflows/deploy-firebase.yml`.
 
 
 
