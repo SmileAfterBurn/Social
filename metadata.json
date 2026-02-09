@@ -5,6 +5,7 @@
   "description": "Єдиний реєстр соціальних послуг з ШІ Gemini 3 Pro (Deep Thinking) та інтеграцією Live API.",
   "apiStyle": "REST/WebSocket",
   "buildHash": "deployed-v1.3.1-final",
+  "publicDomain": "https://соціальна-мапа-турботи.in.ua",
   "requestFramePermissions": [
     "geolocation",
     "microphone"

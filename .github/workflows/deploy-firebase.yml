@@ -1,0 +1,33 @@
+name: CI / Build and Deploy (Firebase Hosting)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting
+        uses: w9jds/firebase-action@v2.2.0
+        with:
+          args: "deploy --only hosting:social-map-of-care --project ${{ secrets.FIREBASE_PROJECT }}"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+# Notes:
+# - Create two repository secrets: FIREBASE_TOKEN (from `firebase login:ci`) and, optionally, FIREBASE_PROJECT (your firebase project id).
+# - The workflow builds the app and runs `firebase deploy` for the hosting site `social-map-of-care`.

@@ -110,6 +110,15 @@ SmileAfterBurn. Social Projects
 - **GitHub:** [SmileAfterBurn](https://github.com/SmileAfterBurn)  
 - **Email:** chernov.illia@icloud.com 
 
+## 🌐 Публічний домен
+
+- **Сайт:** https://соціальна-мапа-турботи.in.ua  
+- **Firebase Hosting site:** `social-map-of-care`  
+- **Інструкції підключення/DNS:** див. `DOMAIN.md` (додано у репозиторій)  
+- **CI/CD:** Для автоматичного деплою додайте GitHub Secrets `FIREBASE_TOKEN` (обов'язково) та опціонально `FIREBASE_PROJECT` (project id). Щоб згенерувати токен локально: встановіть Firebase CLI і виконайте `firebase login:ci`. У репозиторії є приклад workflow: `.github/workflows/deploy-firebase.yml`.
+
+
+
 ---
 
 ## 📝 Ліцензія  

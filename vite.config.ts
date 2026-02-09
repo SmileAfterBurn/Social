@@ -18,9 +18,13 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'Social Service Map Ukraine',
-        short_name: 'Service Map',
-        description: 'A map of social services in Ukraine.',
+        name: 'Соціальна мапа турботи',
+        short_name: 'Мапа турботи',
+        description: 'Мапа соціальних послуг України.',
+        lang: 'uk',
+        start_url: '/',
+        scope: '/',
+        display: 'standalone',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         icons: [
@@ -47,7 +51,7 @@ export default defineConfig({
   // Configure the build process.
   build: {
     // Specify the output directory for the build.
-    outDir: 'build',
+    outDir: 'dist',
     // Disable sourcemaps for the build.
     sourcemap: false,
     // Set the chunk size warning limit to 1600KB.
