@@ -16,6 +16,7 @@ import { CodeFixModal } from './components/CodeFixModal';
 import { CloudMonitoringModal } from './components/CloudMonitoringModal';
 import { TechnicalDocsModal } from './components/TechnicalDocsModal';
 import { AccessibilityPanel } from './components/AccessibilityPanel';
+import { ChildProtectionModal } from './components/ChildProtectionModal';
 import { INITIAL_ORGANIZATIONS, REGION_CONFIG } from './constants';
 import { Organization, RegionName, UserSession, UserRole } from './types';
 
@@ -25,6 +26,7 @@ const App: React.FC = () => {
   const [mobileTab, setMobileTab] = useState<'map' | 'list'>('map');
   const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [activeRegion, setActiveRegion] = useState<RegionName>('All');
   const [showIntro, setShowIntro] = useState(!localStorage.getItem('hide_intro_annotation'));
@@ -37,6 +39,7 @@ const App: React.FC = () => {
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
   const [textSize, setTextSize] = useState<'normal' | 'large' | 'xl'>(() => (localStorage.getItem('textSize') as any) || 'normal');
   const [highContrast, setHighContrast] = useState(() => localStorage.getItem('highContrast') === 'true');
+  const [isChildProtectionOpen, setIsChildProtectionOpen] = useState(false);
   const [referralOrg, setReferralOrg] = useState<Organization | null>(null);
   const [isKeySelected, setIsKeySelected] = useState<boolean | null>(null);
   const [mapKey, setMapKey] = useState(0); 
@@ -89,9 +92,10 @@ const App: React.FC = () => {
     return organizations.filter(o => {
       if (activeRegion !== 'All' && o.region !== activeRegion) return false;
       const term = searchTerm.toLowerCase();
+      if (categoryFilter && o.category !== categoryFilter) return false;
       return o.name.toLowerCase().includes(term) || o.address.toLowerCase().includes(term);
     });
-  }, [organizations, activeRegion, searchTerm]);
+  }, [organizations, activeRegion, searchTerm, categoryFilter]);
 
   if (isKeySelected === false) {
     return (
@@ -225,6 +229,14 @@ const App: React.FC = () => {
           
           <button onClick={() => setIsChatOpen(true)} aria-label="Відкрити AI чат з пані Думкою" className="px-5 py-2.5 bg-slate-900 dark:bg-teal-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl">
              <Sparkles size={14} className="inline mr-2 text-teal-400 dark:text-white" /> AI Чат
+          
+          <button
+            onClick={() => setIsChildProtectionOpen(true)}
+            className="px-5 py-2.5 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl"
+            aria-label="Відкрити ресурси захисту дітей"
+          >
+            <Shield size={14} className="inline mr-2" /> Захист дітей
+          </button>
           </button>
         </div>
       </header>
@@ -233,6 +245,59 @@ const App: React.FC = () => {
           <div className="w-[450px] transition-all duration-500 hidden md:flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-20 overflow-hidden">
              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Результати: {filteredOrgs.length}</span>
+          
+          {/* Category Filters */}
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Категорії:</span>
+            <button
+              onClick={() => setCategoryFilter(categoryFilter === 'Захист дітей' ? null : 'Захист дітей')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                categoryFilter === 'Захист дітей'
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-600 text-white shadow-lg'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
+              aria-pressed={categoryFilter === 'Захист дітей'}
+              aria-label="Фільтрувати по категорії Захист дітей"
+            >
+              <Shield size={12} className="inline mr-1" />
+              Захист дітей
+            </button>
+            <button
+              onClick={() => setCategoryFilter(categoryFilter === 'Прихисток/Житло' ? null : 'Прихисток/Житло')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                categoryFilter === 'Прихисток/Житло'
+                  ? 'bg-teal-600 text-white shadow-lg'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
+              aria-pressed={categoryFilter === 'Прихисток/Житло'}
+              aria-label="Фільтрувати по категорії Прихисток/Житло"
+            >
+              Прихисток/Житло
+            </button>
+            <button
+              onClick={() => setCategoryFilter(categoryFilter === 'Гуманітарний хаб' ? null : 'Гуманітарний хаб')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                categoryFilter === 'Гуманітарний хаб'
+                  ? 'bg-teal-600 text-white shadow-lg'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
+              aria-pressed={categoryFilter === 'Гуманітарний хаб'}
+              aria-label="Фільтрувати по категорії Гуманітарний хаб"
+            >
+              Гуманітарний хаб
+            </button>
+            {categoryFilter && (
+              <button
+                onClick={() => setCategoryFilter(null)}
+                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600"
+                aria-label="Скинути фільтр категорій"
+              >
+                Скинути фільтр
+              </button>
+            )}
+          </div>
+
+
                 <button 
                   onClick={() => setIsRegistryOpen(true)} 
                   className="text-[10px] font-black uppercase text-teal-600 hover:underline flex items-center gap-1"
