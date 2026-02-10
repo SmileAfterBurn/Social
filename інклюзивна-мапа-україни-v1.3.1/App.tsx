@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, Sparkles, MapPin, Sun, Moon, Globe, Heart, Database, PhoneForwarded, Key, ExternalLink, ArrowRight, User as UserIcon, Shield, Lock } from 'lucide-react';
+import { Search, Sparkles, MapPin, Sun, Moon, Globe, Heart, Database, PhoneForwarded, Key, ExternalLink, ArrowRight, User as UserIcon, Shield, Lock, Eye } from 'lucide-react';
 import { MapView } from './components/MapView';
 import { TableView } from './components/TableView';
 import { GeminiChat } from './components/GeminiChat';
@@ -15,6 +15,7 @@ import { TermsOfServiceModal } from './components/TermsOfServiceModal';
 import { CodeFixModal } from './components/CodeFixModal';
 import { CloudMonitoringModal } from './components/CloudMonitoringModal';
 import { TechnicalDocsModal } from './components/TechnicalDocsModal';
+import { AccessibilityPanel } from './components/AccessibilityPanel';
 import { INITIAL_ORGANIZATIONS, REGION_CONFIG } from './constants';
 import { Organization, RegionName, UserSession, UserRole } from './types';
 
@@ -33,6 +34,9 @@ const App: React.FC = () => {
   const [isRegistryOpen, setIsRegistryOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
+  const [textSize, setTextSize] = useState<'normal' | 'large' | 'xl'>(() => (localStorage.getItem('textSize') as any) || 'normal');
+  const [highContrast, setHighContrast] = useState(() => localStorage.getItem('highContrast') === 'true');
   const [referralOrg, setReferralOrg] = useState<Organization | null>(null);
   const [isKeySelected, setIsKeySelected] = useState<boolean | null>(null);
   const [mapKey, setMapKey] = useState(0); 
@@ -211,11 +215,15 @@ const App: React.FC = () => {
             )}
           </div>
 
-          <button onClick={() => setIsDarkMode(!isDarkMode)} className="p-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all hidden sm:flex">
+          <button onClick={() => setIsAccessibilityOpen(true)} aria-label="Налаштування доступності" className="p-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all hidden sm:flex">
+            <Eye size={20} />
+          </button>
+          
+          <button onClick={() => setIsDarkMode(!isDarkMode)} aria-label={isDarkMode ? "Увімкнути світлу тему" : "Увімкнути темну тему"} className="p-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all hidden sm:flex">
             {isDarkMode ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} />}
           </button>
           
-          <button onClick={() => setIsChatOpen(true)} className="px-5 py-2.5 bg-slate-900 dark:bg-teal-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl">
+          <button onClick={() => setIsChatOpen(true)} aria-label="Відкрити AI чат з пані Думкою" className="px-5 py-2.5 bg-slate-900 dark:bg-teal-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl">
              <Sparkles size={14} className="inline mr-2 text-teal-400 dark:text-white" /> AI Чат
           </button>
         </div>
