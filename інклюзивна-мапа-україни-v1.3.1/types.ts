@@ -1,4 +1,3 @@
-
 export type UserRole = 'Guest' | 'Partner' | 'Manager' | 'Admin';
 
 export interface UserSession {
@@ -29,6 +28,8 @@ export interface Organization {
   establishedDate?: string; 
   website?: string;
   notes?: string;
+  isChildProtection?: boolean;
+  emergencyContact?: string;
 }
 
 export interface RemoteSupportActor {
@@ -78,5 +79,9 @@ declare global {
     };
     webkitSpeechRecognition: any;
     SpeechRecognition: any;
+    aistudio?: {
+      hasSelectedApiKey: () => Promise<boolean>;
+      openSelectKey: () => Promise<void>;
+    };
   }
 }

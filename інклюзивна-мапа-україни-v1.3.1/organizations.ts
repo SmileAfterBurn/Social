@@ -185,6 +185,107 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     status: 'Active',
     driveFolderUrl: '', budget: 0
   }
+,
+  
+  // --- ЗАХИСТ ДІТЕЙ (CHILD PROTECTION) ---
+  {
+    id: 'child_prot_kyiv_1',
+    name: 'Національна соціальна сервісна служба України (м. Київ)',
+    region: 'Kyiv',
+    address: 'м. Київ, вул. Еспланадна, 20',
+    lat: 50.4501, lng: 30.5234,
+    category: 'Захист дітей',
+    services: 'Захист дітей від насильства, кризове втручання, соціальний супровід сімей',
+    phone: '0 800 500 225',
+    email: 'info@nssu.gov.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Пн-Пт 09:00-18:00',
+    website: 'https://nssu.gov.ua',
+    isChildProtection: true,
+    emergencyContact: '116 111'
+  },
+  {
+    id: 'child_prot_lviv_1',
+    name: 'Служба у справах дітей (м. Львів)',
+    region: 'Lviv',
+    address: 'м. Львів, пл. Ринок, 1',
+    lat: 49.8397, lng: 24.0297,
+    category: 'Захист дітей',
+    services: 'Захист прав дітей, соціальний супровід, консультації для батьків',
+    phone: '+38 032 297 52 36',
+    email: 'children@city-adm.lviv.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Пн-Пт 08:00-17:00',
+    isChildProtection: true,
+    emergencyContact: '102'
+  },
+  {
+    id: 'child_prot_odesa_1',
+    name: 'Центр соціальних служб для дітей та молоді (м. Одеса)',
+    region: 'Odesa',
+    address: 'м. Одеса, вул. Канатна, 83',
+    lat: 46.4825, lng: 30.7233,
+    category: 'Захист дітей',
+    services: 'Психологічна допомога дітям, профілактика бездоглядності, соціальна реабілітація',
+    phone: '+38 048 722 63 28',
+    email: 'cssd@odessa.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Пн-Пт 09:00-18:00',
+    isChildProtection: true,
+    emergencyContact: '116 111'
+  },
+  {
+    id: 'child_prot_dnipro_1',
+    name: 'Центр соціальних служб для дітей та сімей (м. Дніпро)',
+    region: 'Dnipro',
+    address: 'м. Дніпро, вул. Короленка, 2',
+    lat: 48.4647, lng: 35.0462,
+    category: 'Захист дітей',
+    services: 'Допомога дітям у кризових ситуаціях, прихисток, психологічна підтримка',
+    phone: '+38 056 745 12 34',
+    email: 'center@dnipro-family.gov.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Пн-Пт 08:30-17:30',
+    isChildProtection: true,
+    emergencyContact: '0 800 500 225'
+  },
+  {
+    id: 'child_prot_kharkiv_1',
+    name: 'Кризовий центр для дітей (м. Харків)',
+    region: 'Kharkiv',
+    address: 'м. Харків, вул. Сумська, 64',
+    lat: 49.9935, lng: 36.2304,
+    category: 'Захист дітей',
+    services: 'Екстрена допомога дітям, тимчасовий прихисток, медична та психологічна допомога',
+    phone: '+38 057 731 55 66',
+    email: 'crisis@kharkiv-children.org',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Цілодобово',
+    isChildProtection: true,
+    emergencyContact: '116 111'
+  },
+  {
+    id: 'child_prot_zaporizhzhia_1',
+    name: 'Центр підтримки сімей та дітей (м. Запоріжжя)',
+    region: 'Zaporizhzhia',
+    address: 'м. Запоріжжя, пр. Соборний, 145',
+    lat: 47.8388, lng: 35.1396,
+    category: 'Захист дітей',
+    services: 'Соціальна підтримка сімей з дітьми, консультації, профілактика насильства',
+    phone: '+38 061 220 45 67',
+    email: 'family@zp.gov.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Пн-Пт 09:00-18:00',
+    isChildProtection: true,
+    emergencyContact: '102'
+  }
+
 ];
 
 // --- КОНФІГУРАЦІЯ ДЛЯ ГЕНЕРАЦІЇ ---
