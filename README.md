@@ -88,6 +88,24 @@ SmileAfterBurn. Social Projects
 
 ---
 
+## 🚀 Розгортання на Vercel
+
+Проект готовий до розгортання на Vercel з нульовою конфігурацією!
+
+### Швидке розгортання
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SmileAfterBurn/Social)
+
+### Крок за кроком
+
+1. Імпортуйте репозиторій до Vercel
+2. Налаштуйте змінні середовища (див. `.env.example`)
+3. Натисніть Deploy!
+
+📖 Детальна інструкція: [DEPLOYMENT.md](DEPLOYMENT.md)
+
+---
+
 ## 🤝 Як підтримати проект  
 
 Ваша підтримка допомагає нам розвивати екосистему та допомагати більшій кількості людей!  
