@@ -44,7 +44,7 @@ const PANI_DUMKA_PROMPT = `Ти — пані Думка, інтелектуал�
 Завжди завершуй важливою порадою у блоці: ### 🕊️ Порада від пані Думки`;
 
 export const analyzeData = async (query: string, organizations: Organization[], userLocation?: { lat: number, lng: number }, useThinking: boolean = true): Promise<AnalyzeResult> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
   const lowerQuery = query.toLowerCase();
   
   const isMapQuery = lowerQuery.includes('де') || lowerQuery.includes('поруч') || lowerQuery.includes('маршрут') || lowerQuery.includes('як дістатися') || lowerQuery.includes('адреса') || lowerQuery.includes('карта');
@@ -99,7 +99,7 @@ export const analyzeData = async (query: string, organizations: Organization[], 
 };
 
 export const getIntelligentSummary = async (organizations: Organization[]): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `Надай короткий огляд (до 3 речень) стану допомоги в Україні на основі цих ${organizations.length} організацій. Пиши як пані Думка.`,
@@ -109,7 +109,7 @@ export const getIntelligentSummary = async (organizations: Organization[]): Prom
 };
 
 export const generateSpeech = async (text: string, voiceName: GeminiVoice = 'Kore'): Promise<ArrayBuffer> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash-preview-tts",
     contents: [{ parts: [{ text: `[STYLE: Warm, motherly Ukrainian] ${text}` }] }],
@@ -137,7 +137,7 @@ export class LiveSession {
   ) {}
 
   async connect() {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
     this.acIn = new AudioContext({ sampleRate: 16000 });
     this.acOut = new AudioContext({ sampleRate: 24000 });
     this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });

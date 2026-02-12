@@ -53,7 +53,7 @@ export const MapView: React.FC<MapViewProps> = ({
   // Use the library's official loader to handle script injection and API key management
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.API_KEY || '',
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '',
     libraries: LIBRARIES,
     language: 'uk',
     region: 'UA'
