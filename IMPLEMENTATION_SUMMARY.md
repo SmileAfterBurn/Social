@@ -110,19 +110,19 @@ Features:
 ## 📁 Files Modified/Created
 
 ### Modified Files
-1. `types.ts` - Added child protection fields to Organization interface
-2. `constants.ts` - Added 4 child protection hotlines to REMOTE_SUPPORT_ACTORS
-3. `organizations.ts` - Added 6 child protection centers to INITIAL_ORGANIZATIONS
-4. `App.tsx` - Integrated all new features and accessibility improvements
-5. `package.json` - Fixed dependency issues (removed duplicate)
-6. `README.md` - Added comprehensive feature documentation
+1. `інклюзивна-мапа-україни-v1.3.1/types.ts` - Added child protection fields to Organization interface
+2. `інклюзивна-мапа-україни-v1.3.1/constants.ts` - Added 4 child protection hotlines to REMOTE_SUPPORT_ACTORS
+3. `інклюзивна-мапа-україни-v1.3.1/organizations.ts` - Added 6 child protection centers to INITIAL_ORGANIZATIONS
+4. `інклюзивна-мапа-україни-v1.3.1/App.tsx` - Integrated all new features and accessibility improvements
+5. `інклюзивна-мапа-україни-v1.3.1/package.json` - Fixed dependency issues (removed duplicate)
+6. `інклюзивна-мапа-україни-v1.3.1/README.md` - Added comprehensive feature documentation
 
 ### New Files
-1. `components/AccessibilityPanel.tsx` - Accessibility settings component
-2. `components/ChildProtectionModal.tsx` - Child protection resources modal
-3. `firebase-setup.ts` - Placeholder for build compatibility
-4. `.gitignore` - Exclude build artifacts and dependencies
-5. `CHILD_PROTECTION_ACCESSIBILITY_GUIDE.md` - User guide
+1. `інклюзивна-мапа-україни-v1.3.1/components/AccessibilityPanel.tsx` - Accessibility settings component
+2. `інклюзивна-мапа-україни-v1.3.1/components/ChildProtectionModal.tsx` - Child protection resources modal
+3. `інклюзивна-мапа-україни-v1.3.1/firebase-setup.ts` - Placeholder for build compatibility
+4. `інклюзивна-мапа-україни-v1.3.1/.gitignore` - Exclude build artifacts and dependencies
+5. `інклюзивна-мапа-україни-v1.3.1/CHILD_PROTECTION_ACCESSIBILITY_GUIDE.md` - User guide
 
 ---
 
