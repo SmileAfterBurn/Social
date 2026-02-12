@@ -215,7 +215,7 @@ const filteredOrgs = useMemo(() => {
 - Ukrainian + English versions
 
 ### User Guide
-- `інклюзивна-мапа-україни-v1.3.1/CHILD_PROTECTION_ACCESSIBILITY_GUIDE.md` - Comprehensive 148-line guide
+- `інклюзивна-мапа-україни-v1.3.1/CHILD_PROTECTION_ACCESSIBILITY_GUIDE.md` - Comprehensive guide
 - Quick actions for emergencies
 - Step-by-step instructions
 - Privacy and confidentiality information
