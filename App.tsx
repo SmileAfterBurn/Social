@@ -12,9 +12,6 @@ import { PresentationModal } from './components/PresentationModal';
 import { RegistryModal } from './components/RegistryModal';
 import { PrivacyPolicyModal } from './components/PrivacyPolicyModal';
 import { TermsOfServiceModal } from './components/TermsOfServiceModal';
-import { CodeFixModal } from './components/CodeFixModal';
-import { CloudMonitoringModal } from './components/CloudMonitoringModal';
-import { TechnicalDocsModal } from './components/TechnicalDocsModal';
 import { INITIAL_ORGANIZATIONS, REGION_CONFIG } from './constants';
 import { Organization, RegionName, UserSession, UserRole } from './types';
 
