@@ -88,6 +88,44 @@ SmileAfterBurn. Social Projects
 
 ---
 
+## 🚀 Розгортання на Vercel
+
+Проект готовий до розгортання на Vercel з нульовою конфігурацією!
+
+### 🌟 Швидке розгортання (1 клік)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SmileAfterBurn/Social)
+
+### 📋 Крок за кроком
+
+1. Перейдіть за посиланням вище або на [vercel.com/new](https://vercel.com/new)
+2. Імпортуйте репозиторій `SmileAfterBurn/Social`
+3. Додайте змінні середовища:
+   - `VITE_GOOGLE_MAPS_API_KEY` - [Отримати ключ](https://console.cloud.google.com/google/maps-apis)
+   - `VITE_GEMINI_API_KEY` - [Отримати ключ](https://aistudio.google.com/app/apikey)
+4. Натисніть **Deploy** та чекайте 2-3 хвилини
+
+### 📚 Детальна документація
+
+- 🇺🇦 **Українською**: [РОЗГОРТАННЯ.md](РОЗГОРТАННЯ.md) - повна покрокова інструкція
+- 🇬🇧 **English**: [DEPLOYMENT.md](DEPLOYMENT.md) - detailed deployment guide
+- 📄 **Технічна**: [VERCEL_DEPLOYMENT_SUMMARY.md](VERCEL_DEPLOYMENT_SUMMARY.md)
+- ⚙️ **Змінні**: [.env.example](.env.example) - шаблон для Environment Variables
+
+### 💻 Швидкий старт через CLI
+
+```bash
+# Запустіть скрипт перевірки та отримайте інструкції
+./deploy.sh
+
+# Або розгорніть через Vercel CLI
+npm install -g vercel
+vercel login
+vercel --prod
+```
+
+---
+
 ## 🤝 Як підтримати проект  
 
 Ваша підтримка допомагає нам розвивати екосистему та допомагати більшій кількості людей!  
