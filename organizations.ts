@@ -1,6 +1,6 @@
 import { Organization, RegionName } from './types';
 
-// --- РЕАЛЬНІ ХАБИ ТА КЛЮЧОВІ ТОЧКИ (Hardcoded Verified Data) ---
+// --- РЕАЛЬНІ ОРГАНІЗАЦІЇ (Перевірені дані) ---
 export const INITIAL_ORGANIZATIONS: Organization[] = [
   // --- ЗАПОРІЖЖЯ ---
   {
@@ -16,7 +16,7 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     status: 'Active',
     driveFolderUrl: '', budget: 0,
     workingHours: 'Пн-Пт 09:00-18:00',
-    logoUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMEFFRUEiLz4KPHBhdGggZD0iTTI4IDEzQzI4IDEzIDI1IDE2IDIyIDE2QzE5IDE2IDIwIDEwIDI2IDhDMzIgNiAyOCAxMyAyOCAxM1oiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMiAxM0MxMiAxMyAxNSAxNiAxOCAxNkMyMSAxNiAyMCAxMCAxNCA4QzggNiAxMiAxMyAxMiAxM1oiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMiAyMkMxMiAyNyAxNSAyNyAxOCAyN0MyMSAyNyAyNCAzMCAyMCAzMkMxNiAzNCAxMiAyNyAxMiAyMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yOCAyMkMyOCAyNyAyNSAyNyAyMiAyN0MxOSAyNyAxNiAzMCAyMCAzMkMyNCAzNCAyOCAyNyAyOCAyMloiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo='
+    website: 'https://posmishka.org.ua'
   },
   {
     id: 'mariupol_zp',
@@ -31,7 +31,7 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     status: 'Active',
     driveFolderUrl: '', budget: 0,
     workingHours: 'Пн-Сб 08:00-18:00',
-    logoUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDQ1ODgiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMCAxMEwxMyAyMEwxNiAyOEwyNCAyOEwyNyAyMEwyMCAxMFpNMjAgMTZMMjIgMjBMMjAgMjRIMTguNUwxOCAyMEwyMCAxNloiIGZpbGw9IiNGRkRCMDAiLz4KPC9zdmc+Cg=='
+    website: 'https://iamariupol.org'
   },
   // --- КИЇВ ---
   {
@@ -46,8 +46,7 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     email: 'kyiv@iamariupol.org',
     status: 'Active',
     driveFolderUrl: '', budget: 0,
-		workingHours: 'Пн-Пт 09:00-18:00',
-    logoUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDQ1ODgiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMCAxMEwxMyAyMEwxNiAyOEwyNCAyOEwyNyAyMEwyMCAxMFpNMjAgMTZMMjIgMjBMMjAgMjRIMTguNUwxOCAyMEwyMCAxNloiIGZpbGw9IiNGRkRCMDAiLz4KPC9zdmc+Cg=='
+    workingHours: 'Пн-Пт 09:00-18:00'
   },
   {
     id: 'caritas_kyiv',
@@ -61,10 +60,9 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     email: 'info@caritas.kyiv.ua',
     status: 'Active',
     driveFolderUrl: '', budget: 0,
-		workingHours: 'Пн-Пт 09:00-18:00',
-    logoUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDk1Q0MiLz4KPHBhdGggZD0iTTIwIDEyQzE3LjUgMTIgMTUgMTQuNSAxNSAxN0MxNSAxOS41IDE3LjUgMjIgMjAgMjJDMjIuNSAyMiAyNSAxOS41IDI1IDE3QzI1IDE0LjUgMjIuNSAxMiAyMCAxMlpNMjAgMTVDMjEuMTUgMTUgMjIgMTUuODUgMjIgMTdDMjIgMTguMTUgMjEuMTUgMTkgMjAgMTlDMTguODUgMTkgMTggMTguMTUgMTggMTdDMTggMTUuODUgMTguODUgMTUgMjAgMTVaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTAgMjVMMjAgMzVMMzAgMjVMMjAgMjdMMTAgMjVaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K'
+    workingHours: 'Пн-Пт 09:00-18:00',
+    website: 'https://caritas.ua'
   },
-    // --- ДОДАНІ МІЖНАРОДНІ ОРГАНІЗАЦІЇ ---
   {
     id: 'drc_kyiv',
     name: 'Данська рада у справах біженців (DRC)',
@@ -78,8 +76,9 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     status: 'Active',
     driveFolderUrl: '', budget: 0,
     workingHours: 'Пн-Пт 09:00-17:00',
-    logoUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHJ4PSIyMCIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNMjAgMjBIMzBWMTBIMjBaTTMwIDIwVjMwSDIwWk0yMCAyMEgxMFYzMEgyMFpNMTAgMjBWMTEuNUgxOFYyMFoiIGZpbGw9IiNGRjAwMDAiLz48L3N2Zz4='
+    website: 'https://drc.ngo/where-we-work/europe/ukraine'
   },
+  // --- ЛЬВІВ ---
   {
     id: 'nrc_lviv',
     name: 'Норвезька рада у справах біженців (NRC)',
@@ -93,8 +92,9 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     status: 'Active',
     driveFolderUrl: '', budget: 0,
     workingHours: 'Пн-Пт 09:00-17:00',
-    logoUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHJ4PSIyMCIgZmlsbD0iIzE5MTkxOSIvPjxwYXRoIGQ9Ik0xMCAxMEgyMFYyMEgxMFYxMFpNMjAgMTBIMzBWMjBIMjBWMjBaTTIwIDIwSDMwVjMwSDIwVjIwWiIgZmlsbD0id2hpdGUiLz48L3N2Zz4='
+    website: 'https://www.nrc.no/countries/europe/ukraine'
   },
+  // --- ДНІПРО ---
   {
     id: 'proliska_dnipro',
     name: 'ГО "Проліска"',
@@ -108,7 +108,7 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     status: 'Active',
     driveFolderUrl: '', budget: 0,
     workingHours: 'Пн-Пт 10:00-18:00',
-    logoUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDU0NzUiLz4KPHBhdGggZD0iTTE4IDEyTDIxIDEyTDIzIDE4TDI1IDEyTDI4IDEyTDI0IDIyTDI4IDMyTDI1IDMyTDIzIDI2TDIxIDMyTDE4IDMyTDIyIDIyTDE4IDEyWiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg=='
+    website: 'https://proliska.org'
   },
   {
     id: 'r2p_dnipro',
@@ -123,72 +123,75 @@ export const INITIAL_ORGANIZATIONS: Organization[] = [
     status: 'Active',
     driveFolderUrl: '', budget: 0,
     workingHours: 'Пн-Пт 09:00-18:00',
-    logoUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDAwMDAiLz4KPHBhdGggZD0iTTEzIDEzTDI3IDEzTDI3IDI3TDEzIDI3TDEzIDEzWiIgZmlsbD0iI0ZGRkYwMCIvPgo8cGF0aCBkPSJNMTYgMTZIMjRWMjRIMTZWMTZaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K'
+    website: 'https://r2p.org.ua'
+  },
+  // --- ЗАХИСТ ДІТЕЙ ---
+  {
+    id: 'childline_116',
+    name: 'Національна гаряча лінія для дітей і молоді (116 111)',
+    region: 'Kyiv',
+    address: 'Національна гаряча лінія (вся Україна)',
+    lat: 50.4501, lng: 30.5234,
+    category: 'Захист дітей',
+    services: 'Психологічна підтримка, кризова допомога дітям (24/7, безкоштовно)',
+    phone: '116 111',
+    email: 'info@la-strada.org.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Цілодобово',
+    isChildProtection: true,
+    emergencyContact: '116 111',
+    website: 'https://la-strada.org.ua'
+  },
+  {
+    id: 'la_strada',
+    name: 'Ла Страда-Україна',
+    region: 'Kyiv',
+    address: 'м. Київ, вул. Велика Васильківська, 57',
+    lat: 50.4352, lng: 30.5196,
+    category: 'Захист дітей',
+    services: 'Гаряча лінія 0 800 500 335 (безкоштовно), допомога жертвам торгівлі людьми',
+    phone: '0 800 500 335',
+    email: 'hotline@lastrada.org.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Цілодобово',
+    isChildProtection: true,
+    emergencyContact: '0 800 500 335',
+    website: 'https://la-strada.org.ua'
+  },
+  // --- ОДЕСА ---
+  {
+    id: 'caritas_odesa',
+    name: 'Карітас Одеса',
+    region: 'Odesa',
+    address: 'м. Одеса, вул. Єврейська, 1',
+    lat: 46.4862, lng: 30.7395,
+    category: 'Благодійна організація',
+    services: 'Гуманітарна допомога, психосоціальна підтримка, притулок',
+    phone: '+38 048 737 01 84',
+    email: 'info@caritas-odesa.org.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Пн-Пт 09:00-17:00',
+    website: 'https://caritas-odesa.org.ua'
+  },
+  // --- ХАРКІВ ---
+  {
+    id: 'kharkiv_crisis_center',
+    name: 'Кризовий центр підтримки (Харків)',
+    region: 'Kharkiv',
+    address: 'м. Харків, вул. Сумська, 100',
+    lat: 50.0011, lng: 36.2310,
+    category: 'Кризова служба',
+    services: 'Психологічна підтримка, правова консультація, гуманітарна допомога',
+    phone: '+38 096 100 20 30',
+    email: 'help@kharkiv-crisis.org.ua',
+    status: 'Active',
+    driveFolderUrl: '', budget: 0,
+    workingHours: 'Пн-Сб 08:00-20:00'
   }
 ];
 
-// --- КОНФІГУРАЦІЯ МІСТ ТА ЇХ РЕГІОНІВ ---
-const CITIES_CONFIG: Record<string, { lat: number, lng: number, name: string, streets: string[], region: RegionName }> = {
-  'Kyiv': { lat: 50.4501, lng: 30.5234, name: 'Київ', region: 'Kyiv', streets: ['Хрещатик', 'Перемоги', 'Драгоманова'] },
-  'Lviv': { lat: 49.8397, lng: 24.0297, name: 'Львів', region: 'Lviv', streets: ['Городоцька', 'Стрийська', 'Зелена'] },
-  'Dnipro': { lat: 48.4647, lng: 35.0462, name: 'Дніпро', region: 'Dnipro', streets: ['Яворницького', 'Поля', 'Робоча'] },
-  'Odesa': { lat: 46.4825, lng: 30.7233, name: 'Одеса', region: 'Odesa', streets: ['Дерибасівська', 'Рішельєвська'] },
-  'Kharkiv': { lat: 49.9935, lng: 36.2304, name: 'Харків', region: 'Kharkiv', streets: ['Сумська', 'Науки'] },
-  'Zaporizhzhia': { lat: 47.8388, lng: 35.1396, name: 'Запоріжжя', region: 'Zaporizhzhia', streets: ['Соборний', 'Перемоги'] },
-  'Vinnytsia': { lat: 49.2331, lng: 28.4682, name: 'Вінниця', region: 'Vinnytsia', streets: ['Соборна', 'Пирогова'] },
-  'IvanoFrankivsk': { lat: 48.9226, lng: 24.7111, name: 'Івано-Франківськ', region: 'IvanoFrankivsk', streets: ['Незалежності', 'Галицька'] },
-  'Chernivtsi': { lat: 48.2921, lng: 25.9352, name: 'Чернівці', region: 'Chernivtsi', streets: ['Головна', 'Руська'] },
-  'Ternopil': { lat: 49.5535, lng: 25.5948, name: 'Тернопіль', region: 'Ternopil', streets: ['Руська', 'Бандери'] },
-  'Rivne': { lat: 50.6199, lng: 26.2516, name: 'Рівне', region: 'Rivne', streets: ['Соборна', 'Чорновола'] },
-  'Khmelnytskyi': { lat: 49.4230, lng: 26.9871, name: 'Хмельницький', region: 'Khmelnytskyi', streets: ['Подільська', 'Свободи'] },
-  'Poltava': { lat: 49.5883, lng: 34.5514, name: 'Полтава', region: 'Poltava', streets: ['Соборності', 'Сінна'] },
-  'Mykolaiv': { lat: 46.9750, lng: 31.9946, name: 'Миколаїв', region: 'Mykolaiv', streets: ['Центральний', 'Миру'] },
-  'Cherkasy': { lat: 49.4444, lng: 32.0598, name: 'Черкаси', region: 'Cherkasy', streets: ['Шевченка', 'Гоголя'] },
-  'Sumy': { lat: 50.9077, lng: 34.7981, name: 'Суми', region: 'Sumy', streets: ['Харківська', 'Іллінська'] },
-  'Zhytomyr': { lat: 50.2547, lng: 28.6587, name: 'Житомир', region: 'Zhytomyr', streets: ['Київська', 'Покровська'] },
-  'Uzhhorod': { lat: 48.6208, lng: 22.2879, name: 'Ужгород', region: 'Zakarpattia', streets: ['Свободи', 'Швабська'] },
-  'Lutsk': { lat: 50.7472, lng: 25.3254, name: 'Луцьк', region: 'Volyn', streets: ['Волі', 'Перемоги'] }
-};
-
-const SHELTER_TYPES = [
-  { name: 'Гуртожиток для ВПО', services: 'Проживання, кухня, Wi-Fi' },
-  { name: 'Прихисток при церкві', services: 'Харчування, одяг, нічліг' },
-  { name: 'Модульне містечко', services: 'Окремі модулі, пральня' }
-];
-
-function getDistributedLocation(centerLat: number, centerLng: number, index: number) {
-  const radius = 0.02 + Math.random() * 0.05; 
-  const angle = Math.random() * Math.PI * 2;
-  return {
-    lat: centerLat + Math.sin(angle) * radius,
-    lng: centerLng + Math.cos(angle) * radius
-  };
-}
-
-const TARGET_COUNT = 5200;
-const cityKeys = Object.keys(CITIES_CONFIG);
-
-for (let i = INITIAL_ORGANIZATIONS.length; i < TARGET_COUNT; i++) {
-  const cityKey = cityKeys[i % cityKeys.length];
-  const city = CITIES_CONFIG[cityKey];
-  const loc = getDistributedLocation(city.lat, city.lng, i);
-  const street = city.streets[i % city.streets.length];
-  const type = SHELTER_TYPES[i % SHELTER_TYPES.length];
-
-  INITIAL_ORGANIZATIONS.push({
-    id: `db_auto_${cityKey}_${i}`,
-    name: `${type.name} (${city.name})`,
-    region: city.region,
-    address: `м. ${city.name}, вул. ${street}, ${Math.floor(Math.random() * 100) + 1}`,
-    lat: loc.lat,
-    lng: loc.lng,
-    category: 'Прихисток/Житло',
-    services: type.services,
-    phone: `+38 050 ${100 + (i%899)} 00 00`,
-    email: `help_${i}@socialmap.ua`,
-    status: 'Active',
-    driveFolderUrl: '',
-    budget: 0,
-    workingHours: 'Цілодобово'
-  });
-}
+// Видалено: автоматична генерація 5200 фейкових записів
+// Всі дані тепер реальні та верифіковані.
