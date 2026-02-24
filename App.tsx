@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, Sparkles, MapPin, Sun, Moon, Globe, Heart, Database, PhoneForwarded, Key, ExternalLink, ArrowRight, User as UserIcon, Shield, Lock } from 'lucide-react';
+import { Search, Sparkles, MapPin, Sun, Moon, Globe, Heart, Database, PhoneForwarded, User as UserIcon, Shield } from 'lucide-react';
 import { MapView } from './components/MapView';
 import { TableView } from './components/TableView';
 import { GeminiChat } from './components/GeminiChat';
@@ -31,7 +31,6 @@ const App: React.FC = () => {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [referralOrg, setReferralOrg] = useState<Organization | null>(null);
-  const [isKeySelected, setIsKeySelected] = useState<boolean | null>(null);
   const [mapKey, setMapKey] = useState(0); 
   
   // RBAC State
@@ -43,28 +42,12 @@ const App: React.FC = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   useEffect(() => {
-    const checkKey = async () => {
-      if (window.aistudio && typeof window.aistudio.hasSelectedApiKey === 'function') {
-        const selected = await window.aistudio.hasSelectedApiKey();
-        setIsKeySelected(selected);
-      } else {
-        setIsKeySelected(true); 
-      }
-    };
-    checkKey();
-  }, []);
-
-  useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
-  const handleSelectKey = async () => {
-    if (window.aistudio && typeof window.aistudio.openSelectKey === 'function') {
-      await window.aistudio.openSelectKey();
-      setIsKeySelected(true);
-      setMapKey(prev => prev + 1);
-    }
+  const handleResetMap = () => {
+    setMapKey(prev => prev + 1);
   };
 
   const changeRole = (role: UserRole) => {
@@ -85,37 +68,6 @@ const App: React.FC = () => {
       return o.name.toLowerCase().includes(term) || o.address.toLowerCase().includes(term);
     });
   }, [organizations, activeRegion, searchTerm]);
-
-  if (isKeySelected === false) {
-    return (
-      <div className="h-screen w-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-6 font-sans">
-        <div className="max-w-md w-full bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl p-10 text-center border border-slate-100 dark:border-slate-800 animate-in-dialog">
-          <div className="w-20 h-20 bg-teal-100 dark:bg-teal-900/30 rounded-3xl flex items-center justify-center text-teal-600 dark:text-teal-400 mx-auto mb-8 shadow-inner">
-            <Key size={40} />
-          </div>
-          <h1 className="text-2xl font-black text-slate-800 dark:text-white mb-4 uppercase tracking-tight">Потрібна активація</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mb-8 leading-relaxed">
-            Для роботи мапи та інтелектуального пошуку необхідно підключити ваш Google Cloud Project з активованим Google Maps API та білінгом.
-          </p>
-          <div className="flex flex-col gap-3">
-            <button 
-              onClick={handleSelectKey}
-              className="w-full py-4 bg-teal-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-teal-700 transition-all flex items-center justify-center gap-3 shadow-lg shadow-teal-500/20 active:scale-95"
-            >
-              Підключити проект <ArrowRight size={16} />
-            </button>
-            <a 
-              href="https://ai.google.dev/gemini-api/docs/billing" 
-              target="_blank" 
-              className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-teal-600 transition flex items-center justify-center gap-2"
-            >
-              Документація по білінгу <ExternalLink size={12} />
-            </a>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="h-screen flex flex-col bg-slate-50 dark:bg-slate-950 overflow-hidden font-sans transition-colors duration-300">
@@ -242,7 +194,7 @@ const App: React.FC = () => {
               center={REGION_CONFIG[activeRegion].center as [number, number]}
               zoom={REGION_CONFIG[activeRegion].zoom}
               isDarkMode={isDarkMode}
-              onResetKey={handleSelectKey}
+              onResetKey={handleResetMap}
             />
           </div>
 

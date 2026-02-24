@@ -49,7 +49,7 @@ export const analyzeData = async (query: string, organizations: Organization[], 
   
   const isMapQuery = lowerQuery.includes('де') || lowerQuery.includes('поруч') || lowerQuery.includes('маршрут') || lowerQuery.includes('як дістатися') || lowerQuery.includes('адреса') || lowerQuery.includes('карта');
   
-  const modelName = isMapQuery ? 'gemini-2.5-flash' : (useThinking ? 'gemini-3-pro-preview' : 'gemini-3-flash-preview');
+  const modelName = isMapQuery ? 'gemini-2.5-flash' : (useThinking ? 'gemini-2.5-pro' : 'gemini-2.5-flash');
   
   const config: any = {
     temperature: 0.7,
@@ -70,7 +70,7 @@ export const analyzeData = async (query: string, organizations: Organization[], 
     }
   } else {
     config.tools = [{ googleSearch: {} }];
-    if (useThinking && modelName === 'gemini-3-pro-preview') {
+    if (useThinking && modelName === 'gemini-2.5-pro') {
       config.thinkingConfig = { thinkingBudget: 32768 };
     }
   }
@@ -101,7 +101,7 @@ export const analyzeData = async (query: string, organizations: Organization[], 
 export const getIntelligentSummary = async (organizations: Organization[]): Promise<string> => {
   const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
   const response = await ai.models.generateContent({
-    model: 'gemini-3-flash-preview',
+    model: 'gemini-2.5-flash',
     contents: `Надай короткий огляд (до 3 речень) стану допомоги в Україні на основі цих ${organizations.length} організацій. Пиши як пані Думка.`,
     config: { systemInstruction: PANI_DUMKA_PROMPT }
   });
