@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import 'leaflet/dist/leaflet.css';
+import { Analytics } from '@vercel/analytics/react';
 import { MapView } from '../components/MapView';
 import { TableView } from '../components/TableView';
 import { FilterModal } from '../components/FilterModal';
@@ -112,6 +113,7 @@ const App: React.FC = () => {
         selectedCategories={filters.categories}
         onToggleCategory={handleToggleCategory}
       />
+      <Analytics />
     </div>
   );
 };
