@@ -387,10 +387,10 @@ export const PaniDumkaPremium: React.FC<PaniDumkaPremiumProps> = ({ isOpen = fal
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(var(--primary),0.22),transparent_36%),linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.01))]" />
               <div className="relative flex items-center justify-between gap-4">
                 <div>
-                  <div className="text-[10px] font-black uppercase tracking-[0.24em] text-primary">Patented digital persona</div>
+                  <div className="text-[10px] font-black uppercase tracking-[0.24em] text-primary">Запатентована цифрова особистість</div>
                   <div className="mt-1 text-lg font-black uppercase tracking-[-0.02em] text-white">Пані Думка</div>
                   <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-white/45">
-                    embodied presence • vision • voice • map
+                    присутність • бачення • голос • карта
                   </div>
                 </div>
 
