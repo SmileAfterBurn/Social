@@ -1,231 +1,211 @@
-SmileAfterBurn. Social Projects
- * © 2026 Ілля Чернов. Усі права захищено.
- * Розробник: Ілля Чернов
-<div align="center">  
-<img width="800" height="200" alt="SmileAfterBurn Банер" src="https://github.com/SmileAfterBurn/SmileAfterBurn/blob/main/SAfB%20Baner.svg">
-</div>  
-
-### Волонтер · Розробник  
-
-
-
-
-
-Засновник проєкту SmileAfterBurn. Пройшовши через складну травму, вигорання та тривалий шлях відновлення, я присвятив себе цифровізації соціальної сфери України. Мій особистий досвід боротьби з наслідками стресу та обмеженням мобільності став фундаментом для розбудови інклюзивного середовища.
-
-Я трансформував власну історію у масштабний технологічний проєкт — Інклюзивну карту соціальних послуг. Моя віра в те, що інклюзія — це не лише про пандуси, а передусім про доступ до даних та гідне життя, втілюється в екосистемі SmileAfterBurn. Я будую її, щоб перетворити пережитий біль на дієвий ресурс для розвитку громад та цифрової рівності.
+Markdown
+<div align="center">
+  <img width="100%" alt="SmileAfterBurn Банер" src="https://github.com/SmileAfterBurn/SmileAfterBurn/blob/main/SAfB%20Baner.svg">
+  
+  # SmileAfterBurn. Social Projects
+  
+  *© 2026 Ілля Чернов. Усі права захищено.* <br/>
+  *[English version below](#english-version)* 🇬🇧
+</div>
 
 ---
 
-## 🎯 SmileAfterBurn.social  
+## 👨‍💻 Про розробника: Волонтер · Архітектор екосистеми
 
-Це цифрова екосистема для підтримки вразливих груп населення України. Ми поєднуємо штучний інтелект із принципами безпеки та гуманітарними цінностями, щоб створювати інструменти, які допомагають людям.  
+Привіт! Мене звати Ілля. До 30 років я був звичайним хлопцем: волонтерив з 2013 року, працював у різних сферах та досягав вагомих результатів у торгівлі. У 2022 році моє життя змінилося — як і життя всіх українців. 
 
----
+З перших днів повномасштабного вторгнення я долучився до допомоги разом із фондом «Посмішка ЮА». У перший місяць я одночасно координував постачання нафтопродуктів з одного телефону і готувався приймати першу хвилю людей, які рятувалися від окупації. З червня я присвятив увесь свій час (по 15–20 годин на добу) допомозі людям. 
 
-## 📋 Про проект  
+Через рік, внаслідок екстремального стресу та вигорання, я тимчасово втратив здатність ходити — приблизно на три місяці. Цей період змусив мене переосмислити багато речей: права людей з інвалідністю, справжню цінність підтримки та те, що матеріальні блага — не головне у нашому крихкому світі. Саме тоді народилася філософія **SmileAfterBurn** — посмішка після болю та вигорання. 
 
-**SmileAfterBurn Social Projects** — ініціатива, спрямована на розробку інноваційних технологічних рішень для соціальної сфери України.  
-
-### Ключові принципи  
-
-- 🤖 **Безпечний ШІ** — етичне використання технологій, які не замінюють людину, а полегшують її життя  
-- ❤️ **Незалежність**  
-- 🇺🇦 **Український фокус** — орієнтація на потреби нашого суспільства  
-- 🛡️ **Захист даних** — приватність та безпека користувачів  
-- 🌟 **Інновації** — сучасні підходи до вирішення соціальних проблем  
-- ⚖️ **Принцип «Не нашкодь»** — гуманітарний підхід у кожному рішенні  
+Я трансформував власну історію у технологічний проєкт, адже вірю: інклюзія — це не лише про пандуси. Це про доступ до даних, рівність та гідність.
 
 ---
 
-### Головні цілі  
+## 🎯 SmileAfterBurn.social
 
-1. **Доступність допомоги** — легкий доступ до соціальних та гуманітарних послуг  
-2. **AI-асистенція** — інтелектуальний помічник для вирішення життєвих труднощів  
-3. **Прозорість** — централізована база організацій-надавачів послуг  
-4. **Цифрова інклюзія** — доступність технологій для всіх верств населення  
+Це цифрова екосистема для підтримки вразливих груп населення України. Ми поєднуємо штучний інтелект із принципами безпеки та гуманітарними цінностями, щоб створювати інструменти, які допомагають людям знаходити вихід із кризових ситуацій.
 
----
+### 🛡️ Ключові принципи
+* 🤖 **Безпечний ШІ** — етичне використання технологій, які не замінюють людину, а посилюють її спроможність.
+* ❤️ **Незалежність** — неупереджений та прозорий алгоритм допомоги.
+* 🇺🇦 **Український фокус** — архітектура, побудована під реалії прифронтових та деокупованих територій.
+* 🔒 **Захист даних** — абсолютна приватність користувачів (Zero-Knowledge підхід).
+* ⚖️ **Принцип «Не нашкодь»** — гуманітарний стандарт у кожному рядку коду.
 
-### Поточні задачі  
-
-- ✅ Інтерактивна мапа соціальних послуг  
-- ✅ AI-помічниця з голосовою підтримкою  
-- ✅ База даних організацій по всій Україні  
-- 🔄 Багатомовна підтримка  
-- 🔄 Розширення функціоналу AI-асистента  
-- 📋 Система відгуків та рейтингів організацій  
-
----
-
-## 🚀 Поточний проект: Інклюзивна Мапа Соціальних Послуг  
-
-Перший продукт екосистеми — веб-додаток для пошуку соціальних послуг з AI-помічницею **пані Думкою**.  
-
-### Основні можливості  
-
-- 🗺️ Інтерактивна карта організацій  
-- 🤖 Голосова AI-помічниця  
-- 📊 Детальна інформація про послуги  
-- 🔍 Розумний пошук та фільтрація  
-- 📞 Контакти для дистанційної підтримки  
+### 📋 Головні цілі
+1. **Доступність допомоги** — безбар'єрний доступ до соціальних та гуманітарних послуг.
+2. **AI-асистенція** — інтелектуальний супровід для вирішення складних життєвих обставин.
+3. **Прозорість** — централізована та верифікована база надавачів послуг.
+4. **Цифрова інклюзія** — технології, зрозумілі та доступні для всіх.
 
 ---
 
-## 🛠️ Технології  
+## 🚀 Поточний проєкт: Інклюзивна Мапа Соціальних Послуг
 
-- **Frontend:** React 18, TypeScript, Vite  
-- **Styling:** Tailwind CSS  
-- **Maps:** Leaflet  
-- **AI:** Google Gemini API  
-- **Icons:** Lucide React  
+Перший продукт екосистеми — веб-додаток для маршрутизації та пошуку послуг із вбудованою автономною AI-помічницею **Пані Думкою**.
+
+**Поточний статус завдань:**
+* ✅ Інтерактивна карта організацій по всій Україні
+* ✅ AI-помічниця з голосовою підтримкою
+* ✅ Верифікована база даних (6000+ точок)
+* 🔄 Багатомовна підтримка
+* 🔄 Розширення емпатичного функціоналу AI-асистента
+* 📋 Система відгуків та рейтингів організацій
+
+### 🛠️ Стек технологій
+* **Frontend:** React 18, TypeScript, Vite
+* **Styling:** Tailwind CSS
+* **Maps:** Leaflet
+* **AI Engine:** Google Gemini API
+* **Icons:** Lucide React
 
 ---
 
-## 🚀 Розгортання на Vercel
+## ⚡ Розгортання на Vercel
 
-Проект готовий до розгортання на Vercel з нульовою конфігурацією!
-
-### 🌟 Швидке розгортання (1 клік)
+Проєкт оптимізований для миттєвого розгортання на Vercel з нульовою конфігурацією.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SmileAfterBurn/Social)
 
-### 📋 Крок за кроком
+**Крок за кроком:**
+1. Імпортуйте репозиторій `SmileAfterBurn/Social` на Vercel.
+2. Додайте обов'язкові змінні середовища:
+   * `VITE_GOOGLE_MAPS_API_KEY` — [Отримати ключ](https://console.cloud.google.com/google/maps-apis)
+   * `VITE_GEMINI_API_KEY` — [Отримати ключ](https://aistudio.google.com/app/apikey)
+3. Натисніть **Deploy**.
 
-1. Перейдіть за посиланням вище або на [vercel.com/new](https://vercel.com/new)
-2. Імпортуйте репозиторій `SmileAfterBurn/Social`
-3. Додайте змінні середовища:
-   - `VITE_GOOGLE_MAPS_API_KEY` - [Отримати ключ](https://console.cloud.google.com/google/maps-apis)
-   - `VITE_GEMINI_API_KEY` - [Отримати ключ](https://aistudio.google.com/app/apikey)
-4. Натисніть **Deploy** та чекайте 2-3 хвилини
-
-### 📚 Детальна документація
-
-- 🇺🇦 **Українською**: [РОЗГОРТАННЯ.md](РОЗГОРТАННЯ.md) - повна покрокова інструкція
-- 🇬🇧 **English**: [DEPLOYMENT.md](DEPLOYMENT.md) - detailed deployment guide
-- 📄 **Технічна**: [VERCEL_DEPLOYMENT_SUMMARY.md](VERCEL_DEPLOYMENT_SUMMARY.md)
-- ⚙️ **Змінні**: [.env.example](.env.example) - шаблон для Environment Variables
-
-### 💻 Швидкий старт через CLI
-
-```bash
-# Запустіть скрипт перевірки та отримайте інструкції
-./deploy.sh
-
-# Або розгорніть через Vercel CLI
-npm install -g vercel
-vercel login
-vercel --prod
-```
+*Детальніше читайте у [РОЗГОРТАННЯ.md](РОЗГОРТАННЯ.md).*
 
 ---
 
-## 🤝 Як підтримати проект  
+## 🤝 Підтримати проєкт
 
-Ваша підтримка допомагає нам розвивати екосистему та допомагати більшій кількості людей!  
+Система розробляється та підтримується силами волонтерів. Ваша підтримка — це «паливо» для серверів та розвитку екосистеми.
 
-### Способи підтримки  
-
-1. ⭐ Поставте зірку на GitHub  
-2. 🐛 Повідомляйте про баги  
-3. 💡 Діліться ідеями для нових функцій  
-4. 👨‍💻 Долучайтеся до розробки  
-5. 📢 Поширюйте інформацію про проект  
-6. 💰 Підтримайте фінансово  
+1. ⭐ **Поставте зірку** нашому репозиторію на GitHub.
+2. 🐛 **Повідомляйте про баги** в Issues.
+3. 💻 **Долучайтеся до коду** через Pull Requests.
+4. ☕ **Фінансова підтримка** (оплата API, хостингів, інфраструктури):
+   * 🔗 [Банка Monobank](https://send.monobank.ua/jar/3upLLMPr6P)
+   * 💳 Картка: `4874 1000 2054 3750`
 
 ---
 
-## 📞 Контакти  
+## 📞 Контакти
+* **GitHub:** [SmileAfterBurn](https://github.com/SmileAfterBurn)
+* **Email:** illia@smileafterburn.com
 
-- **GitHub:** [SmileAfterBurn](https://github.com/SmileAfterBurn)  
-- **Email:** chernov.illia@icloud.com 
+📝 **Ліцензія:** MIT License. Детальніше у файлі [LICENSE](LICENSE).
+
+<div align="center">
+  <h3>🇺🇦 Зроблено з любов'ю до України 🇺🇦</h3>
+  <b>Слава Україні!</b> 🟦🟨<br/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg" width="80" alt="Прапор України" />
+</div>
+
+<br><br>
+
+---
+---
+
+<a name="english-version"></a>
+<div align="center">
+  <h2>🇬🇧 English Version</h2>
+</div>
+
+## 👨‍💻 About the Developer: Volunteer · Ecosystem Architect
+
+Hello! My name is Illia. Until the age of 30, I was an ordinary guy: volunteering since 2013, working in various fields, and achieving strong results in sales and trade. In 2022, my life changed — as did the lives of all Ukrainians. 
+
+Right after the full-scale invasion began, I joined the relief efforts together with the "Posmishka UA" Foundation. During the first month, I was simultaneously coordinating petroleum product trades from a single phone and preparing to welcome the first wave of people forced to flee the occupation. From June onward, I dedicated all my time (sometimes 15–20 hours a day) to helping people. 
+
+A year later, due to extreme stress and overload, I temporarily lost the ability to walk — for about three months. That dark period made me rethink many things: the rights of people with disabilities, the true value of support, and the realization that material wealth is fragile. That’s when the philosophy of **SmileAfterBurn** — smiling after the pain and burnout — was born. 
+
+I transformed my personal story into a technological ecosystem, believing that true inclusion isn't just about wheelchair ramps; it’s about equal access to data, dignity, and digital equality.
 
 ---
 
-## 📝 Ліцензія  
+## 🎯 SmileAfterBurn.social
 
-Проект розповсюджується під ліцензією MIT. Детальніше у файлі [LICENSE](LICENSE).  
-
----
-
-<div align="center">  
-
-### 🇺🇦 Зроблено з любов'ю до України 🇺🇦  
-
-**Слава Україні!** 🟦🟨  
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg" width="100" alt="Прапор України" />  
-
-</div>  
-
----
-
-Volunteer · Developer
-Hello! My name is Illia. Until the age of 30, I was just an ordinary guy: volunteering since 2013, working different jobs, and achieving strong results in trade and sales.
-In 2022, my life changed — as did the lives of all Ukrainians. Right after the full-scale invasion began, I joined the relief efforts together with the Smile Foundation. For the first month, I was both trading petroleum products from a single phone and preparing to welcome the first wave of people forced to flee occupation.
-From June onward, I dedicated all my time (sometimes 15–20 hours a day) to helping people. A year later, due to stress and overload, I temporarily lost the ability to walk — for about three months. That period made me rethink many things: the rights of people with disabilities, the value of support, and the fact that material wealth is not the most important thing in our fragile world.
-That’s when the idea of SmileAfterBurn — smiling after the pain — was born.
-In September 2025, I began implementing the first part of the ecosystem: an Inclusive Map of Social Services in Ukraine.
-________________________________________
-🎯 SmileAfterBurn.social
 A digital ecosystem designed to support vulnerable groups in Ukraine by integrating artificial intelligence with humanitarian principles and safe AI practices.
-________________________________________
-📋 About the Project
-SmileAfterBurn Social Projects is an initiative focused on developing innovative technological solutions for Ukraine’s social sphere. It combines modern AI technologies with ethical principles and charitable goals, creating safe and effective tools to help people.
-Core Principles
-•	🤖 Safe AI — ethical use of artificial intelligence that supports, not replaces, humans
-•	❤️ Independence
-•	🇺🇦 Ukrainian Focus — addressing the needs of Ukrainian society
-•	🛡️ Data Protection — safeguarding user privacy
-•	🌟 Innovation — modern approaches to solving social challenges
-•	⚖️ Do No Harm — humanitarian principle at the core of every decision
-________________________________________
-Main Goals
-1.	Accessibility of Aid — easy access to social and humanitarian services
-2.	AI Assistance — an intelligent helper for everyday challenges
-3.	Transparency — centralized database of service providers
-4.	Digital Inclusion — making technology accessible to all groups
-________________________________________
-Current Tasks
-•	✅ Interactive map of social services
-•	✅ AI assistant with voice support
-•	✅ Database of organizations across Ukraine
-•	🔄 Multilingual support
-•	🔄 Expanded AI assistant functionality
-•	📋 Feedback and rating system for organizations
-________________________________________
-🚀 Current Project: Inclusive Map of Social Services
-The first product of the ecosystem — a web application for finding social services with an AI assistant called Ms. Thought.
-Key Features
-•	🗺️ Interactive map of organizations
-•	🤖 Voice-enabled AI assistant
-•	📊 Detailed service information
-•	🔍 Smart search and filtering
-•	📞 Contact options for remote support
-________________________________________
-🛠️ Technologies
-•	Frontend: React 18, TypeScript, Vite
-•	Styling: Tailwind CSS
-•	Maps: Leaflet
-•	AI: Google Gemini API
-•	Icons: Lucide React
-________________________________________
-🤝 How to Support the Project
-Your support helps us grow and reach more people in need!
-Ways to Contribute
-1.	⭐ Star the project on GitHub
-2.	🐛 Report bugs
-3.	💡 Share ideas for new features
-4.	👨‍💻 Contribute to development
-5.	📢 Spread the word
-6.	💰 Provide financial support
-________________________________________
-📞 Contacts
-•	GitHub: SmileAfterBurn
-•	Email: chernov.illia@icloud.com
-________________________________________
-📝 License
-This project is distributed under the MIT License. See LICENSE for details.
-________________________________________
+
+### 🛡️ Core Principles
+* 🤖 **Safe AI** — ethical use of artificial intelligence that empowers, rather than replaces, humans.
+* ❤️ **Independence** — transparent and unbiased assistance algorithms.
+* 🇺🇦 **Ukrainian Focus** — an architecture built specifically for the realities of frontline and de-occupied territories.
+* 🔒 **Data Protection** — absolute privacy for users in crisis.
+* ⚖️ **Do No Harm** — the humanitarian standard embedded in every line of code.
+
+### 📋 Main Goals
+1. **Accessibility of Aid** — barrier-free access to social and humanitarian services.
+2. **AI Assistance** — an intelligent helper for navigating everyday challenges.
+3. **Transparency** — a centralized, verified database of service providers.
+4. **Digital Inclusion** — making complex technology accessible to all demographics.
+
+---
+
+## 🚀 Current Project: Inclusive Map of Social Services
+
+The flagship product of the ecosystem is a web application for routing and finding social services, powered by our autonomous AI assistant, **Pani Dumka** (Ms. Thought).
+
+**Current Milestone Status:**
+* ✅ Interactive map of organizations across Ukraine
+* ✅ AI assistant with voice support
+* ✅ Verified database (6,000+ points of care)
+* 🔄 Multilingual support
+* 🔄 Expanding empathic AI features
+* 📋 Feedback and rating system for providers
+
+### 🛠️ Tech Stack
+* **Frontend:** React 18, TypeScript, Vite
+* **Styling:** Tailwind CSS
+* **Maps:** Leaflet
+* **AI Engine:** Google Gemini API
+* **Icons:** Lucide React
+
+---
+
+## ⚡ Deployment on Vercel
+
+The project is optimized for zero-configuration deployment on Vercel.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SmileAfterBurn/Social)
+
+**Step by step:**
+1. Import the `SmileAfterBurn/Social` repository on Vercel.
+2. Add the required Environment Variables:
+   * `VITE_GOOGLE_MAPS_API_KEY` — [Get key here](https://console.cloud.google.com/google/maps-apis)
+   * `VITE_GEMINI_API_KEY` — [Get key here](https://aistudio.google.com/app/apikey)
+3. Click **Deploy**.
+
+*For more details, read [DEPLOYMENT.md](DEPLOYMENT.md).*
+
+---
+
+## 🤝 How to Support the Project
+
+This system is developed and maintained entirely by volunteers. Your support is the "fuel" keeping our servers running and the ecosystem growing.
+
+1. ⭐ **Star** this repository on GitHub.
+2. 🐛 **Report bugs** in the Issues tab.
+3. 💻 **Contribute** code via Pull Requests.
+4. ☕ **Financial Support** (to cover API costs, hosting, and infrastructure):
+   * 🔗 [Monobank Jar](https://send.monobank.ua/jar/3upLLMPr6P)
+   * 💳 Card: `4874 1000 2054 3750`
+
+---
+
+## 📞 Contacts
+* **GitHub:** [SmileAfterBurn](https://github.com/SmileAfterBurn)
+* **Email:** illia@smileafterburn.com
+
+📝 **License:** Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
+<div align="center">
+  <h3>🇺🇦 Made with love for Ukraine 🇺🇦</h3>
+  <b>Glory to Ukraine!</b> 🟦🟨<br/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg" width="80" alt="Flag of Ukraine" />
+</div>
 🇺🇦 Made with love for Ukraine 🇺🇦
 Glory to Ukraine! 🟦🟨
