@@ -97,14 +97,36 @@ def analyze_symbol(
         score_short = max(0, min(100, score_short))
 
         # ── v3.3: RSI extreme як віртуальна стратегія ──────────────────────
-        # Екстремальний RSI рахується як додаткове підтвердження,
-        # але тільки якщо є хоча б 1 реальна стратегія (не сам по собі).
+        # v3.4: ВИМКНЕНО для mean-reversion (RSI<20 long / RSI>80 short)
+        # коли EMA тренд ПРОТИ — це ловля ножів.
         effective_long_count = ms.long_count
         effective_short_count = ms.short_count
-        if rsi < 20 and ms.long_count >= 1:
-            effective_long_count += 1   # mean-reversion boost
-        if rsi > 80 and ms.short_count >= 1:
-            effective_short_count += 1  # mean-reversion boost
+        # RSI extreme бонус тільки якщо EMA тренд ПІДТВЕРДЖУЄ
+        ema_strat = next((s for s in ms.strategies if s.name == "EMA Trend"), None)
+        ema_confirms_long = ema_strat and ema_strat.signal == "long" and ema_strat.score >= 0.3
+        ema_confirms_short = ema_strat and ema_strat.signal == "short" and ema_strat.score >= 0.3
+        if rsi < 20 and ms.long_count >= 1 and ema_confirms_long:
+            effective_long_count += 1
+        if rsi > 80 and ms.short_count >= 1 and ema_confirms_short:
+            effective_short_count += 1
+
+        # ── v3.4: HARD VETO — mean-reversion проти тренду ─────────────────
+        # Якщо EMA тренд bearish + RSI < 30 → блокуємо long (ловля ножів)
+        # Якщо EMA тренд bullish + RSI > 70 → блокуємо short
+        if ema_strat:
+            if ema_strat.signal == "short" and ema_strat.score >= 0.6 and rsi < 30:
+                score_long = max(0, score_long - 20)  # жорсткий штраф
+            if ema_strat.signal == "long" and ema_strat.score >= 0.6 and rsi > 70:
+                score_short = max(0, score_short - 20)
+
+        # ── v3.4: Micro-trend filter — остання свічка має підтвердити ──────
+        last_candle = candles[-1]
+        last_bullish = last_candle["close"] > last_candle["open"]
+        last_bearish = last_candle["close"] < last_candle["open"]
+        if not last_bullish and effective_long_count < 4:
+            score_long = max(0, score_long - 5)  # невелике покарання
+        if not last_bearish and effective_short_count < 4:
+            score_short = max(0, score_short - 5)
 
         # ── Вибираємо напрямок з вищим скором ─────────────────────────────
         long_valid  = score_long  >= cfg.partial_min and effective_long_count  >= cfg.min_strategies
@@ -183,8 +205,9 @@ def analyze_symbol(
             except Exception:
                 pass
 
-        # Capital advice — ПІСЛЯ фінального скору
-        capital, lev = calc_capital_advice(score, cfg.balance)
+        # Capital advice — ПІСЛЯ фінального скору, з risk-based sizing
+        sl_dist = levels.get("sl_distance_pct", 0.0)
+        capital, lev = calc_capital_advice(score, cfg.balance, stop_distance_pct=sl_dist)
 
         # Trade levels
         levels = calc_trade_levels(price, direction, atr, atr_multiplier_sl=cfg.signal_atr_sl_mult)

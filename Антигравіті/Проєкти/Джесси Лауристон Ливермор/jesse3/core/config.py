@@ -64,7 +64,7 @@ class Config:
     min_strategies: int = 2        # ★ v3.2: 2 з 6 стратегій повинні підтвердити
 
     # ── Параметри торгової стратегії (SHORT-TERM: зайшов → вийшов) ────────────
-    signal_atr_sl_mult: float = 1.5   # SL = ATR × 1.5 — тісний стоп
+    signal_atr_sl_mult: float = 0.75  # v3.4: SL = ATR × 0.75 — тісний для скальпінгу
     signal_tp_target:   str   = "tp1" # ★ v3.2: "tp1"=ATR×2 — швидкий забір прибутку
     signal_cooldown:    int   = 3     # свічок паузи після SL-удару
     signal_trend_ema:   int   = 200   # EMA-період для визначення тренду
