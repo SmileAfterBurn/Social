@@ -96,9 +96,19 @@ def analyze_symbol(
         score_long  = max(0, min(100, score_long))
         score_short = max(0, min(100, score_short))
 
+        # ── v3.3: RSI extreme як віртуальна стратегія ──────────────────────
+        # Екстремальний RSI рахується як додаткове підтвердження,
+        # але тільки якщо є хоча б 1 реальна стратегія (не сам по собі).
+        effective_long_count = ms.long_count
+        effective_short_count = ms.short_count
+        if rsi < 20 and ms.long_count >= 1:
+            effective_long_count += 1   # mean-reversion boost
+        if rsi > 80 and ms.short_count >= 1:
+            effective_short_count += 1  # mean-reversion boost
+
         # ── Вибираємо напрямок з вищим скором ─────────────────────────────
-        long_valid  = score_long  >= cfg.partial_min and ms.long_count   >= cfg.min_strategies
-        short_valid = score_short >= cfg.partial_min and ms.short_count >= cfg.min_strategies
+        long_valid  = score_long  >= cfg.partial_min and effective_long_count  >= cfg.min_strategies
+        short_valid = score_short >= cfg.partial_min and effective_short_count >= cfg.min_strategies
 
         if long_valid and short_valid:
             # Обидва валідні — беремо сильніший, але тільки якщо різниця > 10
