@@ -39,6 +39,9 @@ class Config:
     telegram_token: str = field(default_factory=lambda: os.environ.get("TELEGRAM_TOKEN", ""))
     telegram_chat_id: str = field(default_factory=lambda: os.environ.get("TELEGRAM_CHAT_ID", ""))
 
+    # Massive.com REST API (market data: stocks, crypto, forex, indices)
+    massive_api_key: str = field(default_factory=lambda: os.environ.get("MASSIVE_API_KEY", ""))
+
     # Рахунок
     balance: float = field(default_factory=lambda: float(os.environ.get("BALANCE", "20.0")))
     leverage: int = field(default_factory=lambda: int(os.environ.get("LEVERAGE", "10")))

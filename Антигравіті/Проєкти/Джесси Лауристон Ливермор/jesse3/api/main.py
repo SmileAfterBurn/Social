@@ -801,6 +801,74 @@ async def ner_extract(body: NERBody):
     return {"text": body.text[:200], "entities": entities}
 
 
+# ── Massive.com market data endpoints ────────────────────────────────────────
+
+@app.get("/api/massive/snapshot/{ticker}")
+async def massive_snapshot(ticker: str, market: str = "crypto"):
+    """Get real-time snapshot for a ticker via Massive.com API."""
+    from jesse3.core.massive import fetch_crypto_snapshot, fetch_stock_snapshot, fetch_forex_snapshot
+    if not cfg.massive_api_key:
+        raise HTTPException(400, "MASSIVE_API_KEY not set")
+    if market == "crypto":
+        data = fetch_crypto_snapshot(ticker)
+    elif market == "forex":
+        data = fetch_forex_snapshot(ticker)
+    else:
+        data = fetch_stock_snapshot(ticker)
+    if data is None:
+        raise HTTPException(502, f"Failed to fetch snapshot for {ticker}")
+    return data
+
+
+@app.get("/api/massive/indicators/{ticker}")
+async def massive_indicators(ticker: str, timespan: str = "hour", window: int = 14):
+    """Get technical indicators (RSI, EMA, MACD) from Massive.com API."""
+    from jesse3.core.massive import fetch_rsi, fetch_ema, fetch_macd
+    if not cfg.massive_api_key:
+        raise HTTPException(400, "MASSIVE_API_KEY not set")
+    return {
+        "ticker": ticker,
+        "timespan": timespan,
+        "rsi": fetch_rsi(ticker, timespan, window),
+        "ema50": fetch_ema(ticker, timespan, 50),
+        "ema200": fetch_ema(ticker, timespan, 200),
+        "macd": fetch_macd(ticker, timespan),
+    }
+
+
+@app.get("/api/massive/news")
+async def massive_news(ticker: str = "", limit: int = 10):
+    """Get market news from Massive.com API."""
+    from jesse3.core.massive import fetch_stock_news
+    if not cfg.massive_api_key:
+        raise HTTPException(400, "MASSIVE_API_KEY not set")
+    news = fetch_stock_news(ticker, limit)
+    if news is None:
+        raise HTTPException(502, "Failed to fetch news")
+    return {"count": len(news), "results": news}
+
+
+@app.get("/api/massive/enrich/{symbol}")
+async def massive_enrich_endpoint(symbol: str):
+    """Enrich JESSIE symbol analysis with Massive.com data."""
+    from jesse3.core.massive import enrich_analysis
+    if not cfg.massive_api_key:
+        raise HTTPException(400, "MASSIVE_API_KEY not set")
+    return enrich_analysis(symbol)
+
+
+@app.get("/api/massive/movers")
+async def massive_movers(direction: str = "gainers"):
+    """Get top market movers from Massive.com API."""
+    from jesse3.core.massive import fetch_top_movers
+    if not cfg.massive_api_key:
+        raise HTTPException(400, "MASSIVE_API_KEY not set")
+    data = fetch_top_movers(direction)
+    if data is None:
+        raise HTTPException(502, "Failed to fetch movers")
+    return {"direction": direction, "count": len(data), "tickers": data}
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8001, reload=True)
