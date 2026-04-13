@@ -106,6 +106,13 @@ async def ui_redirect():
 
 # ── Pydantic models ───────────────────────────────────────────────────────────
 
+class StrategyDetailOut(BaseModel):
+    name: str
+    signal: str
+    score: float
+    note: str
+
+
 class SignalOut(BaseModel):
     symbol: str
     direction: str
@@ -130,6 +137,8 @@ class SignalOut(BaseModel):
     notes: List[str]
     strength: str
     is_tradeable: bool
+    strategy_details: List[StrategyDetailOut] = []
+    is_knife: bool = False
 
 
 class TradeIn(BaseModel):
@@ -185,6 +194,11 @@ def _signal_to_out(r) -> SignalOut:
         notes=r.notes,
         strength=r.strength,
         is_tradeable=r.is_tradeable,
+        strategy_details=[
+            StrategyDetailOut(name=s["name"], signal=s["signal"], score=s["score"], note=s["note"])
+            for s in (r.strategy_details or [])
+        ],
+        is_knife=getattr(r, "is_knife", False),
     )
 
 

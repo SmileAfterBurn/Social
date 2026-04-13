@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JESSIE 3.0 — Signal Dashboard</title>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --surface: #111827;
+      --surface2: #1c2333;
+      --border: #2a3548;
+      --accent: #00d4ff;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --dim: #64748b;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      min-height: 100vh;
+    }
+    /* Header */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 { color: var(--accent); font-size: 18px; letter-spacing: 2px; }
+    header .version { color: var(--dim); font-size: 11px; }
+    .refresh-btn {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .refresh-btn:hover { opacity: 0.85; }
+    .refresh-btn:disabled { opacity: 0.4; cursor: wait; }
+    .quick-btn {
+      background: var(--surface2); color: var(--text);
+      border: 1px solid var(--border); padding: 5px 12px;
+      border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 12px;
+    }
+    .quick-btn:hover { border-color: var(--accent); color: var(--accent); }
+    /* Layout */
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px 24px; }
+    /* Status bar */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .status-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .status-card .label { color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    .status-card .value { font-size: 20px; font-weight: bold; margin-top: 4px; }
+    .status-card .sub { color: var(--dim); font-size: 11px; margin-top: 2px; }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .yellow { color: var(--yellow); }
+    .cyan { color: var(--accent); }
+    /* Guard bar */
+    .guard-bar {
+      background: var(--surface2);
+      border-radius: 3px;
+      height: 4px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .guard-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s;
+      background: var(--green);
+    }
+    .guard-fill.warn { background: var(--yellow); }
+    .guard-fill.danger { background: var(--red); }
+    /* Signals */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 20px 0 12px;
+      color: var(--text);
+    }
+    .badge {
+      background: var(--surface2);
+      color: var(--dim);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 12px;
+    }
+    .signal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .signal-card:hover { border-color: var(--accent); }
+    .signal-card.strong { border-color: #16a34a; }
+    .signal-card.partial { border-color: #92400e; }
+    .signal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .symbol { font-size: 18px; font-weight: bold; color: var(--accent); }
+    .score {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .score-bar-wrap { margin: 8px 0; }
+    .score-bar {
+      background: var(--surface2);
+      border-radius: 3px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .score-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s;
+    }
+    .score-fill.strong { background: var(--green); }
+    .score-fill.partial { background: var(--yellow); }
+    .score-fill.weak { background: var(--dim); }
+    .direction {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .direction.long { background: rgba(34,197,94,0.15); color: var(--green); }
+    .direction.short { background: rgba(239,68,68,0.15); color: var(--red); }
+    .direction.neutral { background: var(--surface2); color: var(--dim); }
+    .indicators {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin: 10px 0;
+    }
+    .ind-item { background: var(--surface2); padding: 6px 8px; border-radius: 4px; }
+    .ind-label { color: var(--dim); font-size: 10px; }
+    .ind-value { font-size: 13px; font-weight: bold; margin-top: 2px; }
+    .trade-levels {
+      background: var(--surface2);
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .level-item { display: flex; justify-content: space-between; }
+    .level-label { color: var(--dim); }
+    .level-val { color: var(--text); font-weight: bold; }
+    .capital-line {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 4px;
+      padding: 6px 10px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .notes { margin-top: 8px; }
+    .note { color: var(--yellow); font-size: 11px; }
+    /* Empty state */
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: var(--dim);
+    }
+    /* Loading overlay */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,14,26,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      display: none;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 8px 16px;
+      border: none;
+      background: transparent;
+      color: var(--dim);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    /* Journal */
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+    .trade-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .trade-card .pnl { font-size: 20px; font-weight: bold; }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--dim);
+      font-size: 11px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    /* Auto-refresh timer */
+    .timer { color: var(--dim); font-size: 11px; }
+    @media (max-width: 600px) {
+      .signal-grid { grid-template-columns: 1fr; }
+      .indicators { grid-template-columns: repeat(2, 1fr); }
+      header h1 { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading"><div class="spinner"></div></div>
+
+<header>
+  <div>
+    <h1>⚡ JESSIE 3.0</h1>
+    <div class="version">Adaptive Signal Engine · Jesse Livermore</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="timer" id="timer">—</span>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadAll()">🔄 Оновити</button>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Status Bar -->
+  <div class="status-grid" id="statusGrid">
+    <div class="status-card">
+      <div class="label">Баланс</div>
+      <div class="value cyan" id="balance">—</div>
+    </div>
+    <div class="status-card">
+      <div class="label">BTC тренд</div>
+      <div class="value" id="btcTrend">—</div>
+      <div class="sub" id="btcPct">—</div>
+    </div>
+    <div class="status-card">
+      <div class="label">Fear & Greed</div>
+      <div class="value" id="fgValue">—</div>
+      <div class="sub" id="fgLabel">—</div>
+    </div>
+    <div class="status-card">
+      <div class="label">Денний захист</div>
+      <div class="value" id="guardStatus">—</div>
+      <div class="guard-bar"><div class="guard-fill" id="guardBar" style="width:0%"></div></div>
+      <div class="sub" id="guardSub">—</div>
+    </div>
+    <div class="status-card">
+      <div class="label">BTC Dominance</div>
+      <div class="value cyan" id="btcDom">—</div>
+      <div class="sub" id="mktChg">—</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('scan')">📡 Сигнали</button>
+    <button class="tab" onclick="showTab('altcoins')">💎 Альти &lt;$1</button>
+    <button class="tab" onclick="showTab('journal')">📒 Журнал</button>
+    <button class="tab" onclick="showTab('ai')">🤖 AI</button>
+    <button class="tab" onclick="showTab('rules')">📜 Правила</button>
+    <button class="tab" onclick="showTab('chat')">💬 Чат</button>
+  </div>
+
+  <!-- Scan Tab -->
+  <div id="tab-scan">
+    <div class="section-title">
+      🔥 Сильні сигнали
+      <span class="badge" id="strongCount">0</span>
+    </div>
+    <div class="signal-grid" id="strongGrid">
+      <div class="empty">Натисніть «Оновити» для завантаження сигналів</div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px;">
+      ⚡ Часткові сигнали
+      <span class="badge" id="partialCount">0</span>
+    </div>
+    <div class="signal-grid" id="partialGrid"></div>
+  </div>
+
+  <!-- Altcoins Tab -->
+  <div id="tab-altcoins" style="display:none">
+    <div class="section-title">
+      💎 Динамічний скан альтів &lt;$1
+      <span class="badge" id="altCount">0</span>
+      <button onclick="loadAltcoins()" class="quick-btn" style="margin-left:auto">🔄 Сканувати</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+      <label style="color:var(--dim);font-size:11px">Макс ціна:</label>
+      <select id="altMaxPrice" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:4px;font-family:inherit;font-size:12px">
+        <option value="0.1">$0.10</option>
+        <option value="0.5">$0.50</option>
+        <option value="1.0" selected>$1.00</option>
+      </select>
+      <label style="color:var(--dim);font-size:11px;margin-left:8px">Мін об'єм:</label>
+      <select id="altMinVol" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:4px;font-family:inherit;font-size:12px">
+        <option value="500000">$500K</option>
+        <option value="1000000" selected>$1M</option>
+        <option value="5000000">$5M</option>
+        <option value="10000000">$10M</option>
+      </select>
+    </div>
+    <div id="altLoading" style="display:none;color:var(--yellow);padding:20px 0">⏳ Скануємо ринок...</div>
+    <div class="section-title" style="font-size:12px;color:var(--green);">🔥 Сильні сигнали <span class="badge" id="altStrongCount">0</span></div>
+    <div class="signal-grid" id="altStrongGrid"><div class="empty">Натисніть «Сканувати»</div></div>
+    <div class="section-title" style="margin-top:16px;font-size:12px;color:var(--yellow);">⚡ Часткові сигнали <span class="badge" id="altPartialCount">0</span></div>
+    <div class="signal-grid" id="altPartialGrid"></div>
+  </div>
+
+  <!-- AI Tab -->
+  <div id="tab-ai" style="display:none">
+    <div class="section-title">🤖 AI Аналіз — Gemini + Jesse Livermore</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <input id="aiSymbol" type="text" placeholder="DOGEUSDT" value="BTCUSDT"
+        style="background:var(--surface2);border:1px solid var(--border);color:var(--text);
+               padding:8px 12px;border-radius:4px;font-family:inherit;font-size:13px;flex:1;min-width:120px;max-width:200px">
+      <input id="aiQuestion" type="text" placeholder="Питання (необов'язково)"
+        style="background:var(--surface2);border:1px solid var(--border);color:var(--text);
+               padding:8px 12px;border-radius:4px;font-family:inherit;font-size:13px;flex:2;min-width:200px">
+      <button id="aiBtn" onclick="runAI()"
+        style="background:var(--accent);color:var(--bg);border:none;padding:8px 18px;
+               border-radius:4px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:bold;white-space:nowrap">
+        ⚡ Аналізувати
+      </button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+      <button onclick="quickAI('DOGEUSDT')" class="quick-btn">DOGE</button>
+      <button onclick="quickAI('TRXUSDT')" class="quick-btn">TRX</button>
+      <button onclick="quickAI('ADAUSDT')" class="quick-btn">ADA</button>
+      <button onclick="quickAI('XRPUSDT')" class="quick-btn">XRP</button>
+      <button onclick="quickAI('SOLUSDT')" class="quick-btn">SOL</button>
+      <button onclick="quickAI('1000PEPEUSDT')" class="quick-btn">PEPE</button>
+    </div>
+    <div id="aiResult" style="background:var(--surface);border:1px solid var(--border);
+         border-radius:8px;padding:16px;min-height:120px;white-space:pre-wrap;line-height:1.6;color:var(--text)">
+      <span style="color:var(--dim)">Введіть символ та натисніть «Аналізувати»...</span>
+    </div>
+  </div>
+
+  <!-- Journal Tab -->
+  <div id="tab-journal" style="display:none">
+    <div id="journalContent"></div>
+  </div>
+
+  <!-- Rules Tab -->
+  <div id="tab-rules" style="display:none">
+    <div style="max-width:600px">
+      <div class="section-title">📜 7 Заповідей Лівермора</div>
+      <div id="rulesList"></div>
+      <div class="section-title" style="margin-top:24px;">🚫 Заборонені дії</div>
+      <div id="forbiddenList"></div>
+      <div style="margin-top:24px;color:var(--dim);font-style:italic;">
+        «Я ніколи не втрачав гроші сидячи осторонь. Я втрачав їх коли торгував.»<br>
+        — Jesse Lauriston Livermore, 1877–1940
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Tab -->
+  <div id="tab-chat" style="display:none">
+    <div style="max-width:760px;margin:0 auto;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <button class="quick-btn" onclick="chatSend('онови дані')">🔄 Онови дані</button>
+        <button class="quick-btn" onclick="chatSend('все за планом?')">✅ Все за планом?</button>
+        <button class="quick-btn" onclick="chatSend('статус')">📊 Статус</button>
+        <button class="quick-btn" onclick="chatSend('сигнали')">📡 Сигнали</button>
+        <button class="quick-btn" onclick="chatSend('баланс та угоди')">💰 Баланс</button>
+        <button class="quick-btn" onclick="chatSend('допомога')">❓ Допомога</button>
+      </div>
+      <div id="chatMessages" style="
+        background:var(--surface);
+        border:1px solid var(--border);
+        border-radius:8px;
+        padding:16px;
+        height:400px;
+        overflow-y:auto;
+        margin-bottom:12px;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+      ">
+        <div style="color:var(--dim);font-size:12px;text-align:center;">
+          💬 JESSIE 3.0 Асистент — пишіть українською або англійською
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <input id="chatInput" type="text" placeholder="Запитайте про ринок, сигнали, баланс..."
+          style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:6px;
+                 padding:10px 14px;color:var(--text);font-family:inherit;font-size:13px;outline:none;"
+          onkeydown="if(event.key==='Enter')chatSend()"
+          onfocus="this.style.borderColor='var(--accent)'"
+          onblur="this.style.borderColor='var(--border)'"
+        />
+        <button id="chatBtn" class="refresh-btn" onclick="chatSend()" style="padding:10px 20px;">⚡ Надіслати</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  JESSIE 3.0 — Based on Jesse Lauriston Livermore's trading principles
+  · API: <a href="/docs" style="color:var(--accent)">/docs</a>
+</footer>
+
+<script>
+const API = window.location.origin;
+let autoRefreshInterval = null;
+let countdown = 0;
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function fmtPrice(p) {
+  if (!p) return '0';
+  if (p >= 100) return p.toFixed(2);
+  if (p >= 1) return p.toFixed(4);
+  if (p >= 0.01) return p.toFixed(6);
+  return p.toFixed(8);
+}
+
+function scoreClass(score) {
+  if (score >= 68) return 'strong';
+  if (score >= 48) return 'partial';
+  return 'weak';
+}
+
+function directionHtml(dir) {
+  const labels = { long: '🟢 LONG', short: '🔴 SHORT', neutral: '⬜ —' };
+  return `<span class="direction ${dir}">${labels[dir] || '—'}</span>`;
+}
+
+function scoreColor(score) {
+  if (score >= 68) return 'var(--green)';
+  if (score >= 48) return 'var(--yellow)';
+  return 'var(--dim)';
+}
+
+function rsiColor(rsi) {
+  if (rsi < 30) return 'var(--green)';
+  if (rsi > 70) return 'var(--red)';
+  return 'var(--text)';
+}
+
+function volColor(vol) {
+  if (vol >= 2) return 'var(--green)';
+  if (vol >= 1.5) return 'var(--yellow)';
+  return 'var(--dim)';
+}
+
+// ── Signal card ───────────────────────────────────────────────────────────────
+
+function signalCard(r, rank) {
+  const cls = scoreClass(r.score);
+  const rankBadge = rank ? `<span style="color:var(--dim);font-size:11px;">#${rank}</span> ` : '';
+  const sym = r.symbol.replace('/USDT', '');
+  const knife = r.is_knife ? ' 🔪' : '';
+
+  const levels = r.is_tradeable ? `
+    <div class="trade-levels">
+      <div style="color:var(--dim);font-size:11px;margin-bottom:4px;">РІВНІ</div>
+      <div class="levels-grid">
+        <div class="level-item"><span class="level-label">Вхід</span><span class="level-val">${fmtPrice(r.entry)}</span></div>
+        <div class="level-item"><span class="level-label">SL</span><span class="level-val" style="color:var(--red)">${fmtPrice(r.stop_loss)}</span></div>
+        <div class="level-item"><span class="level-label">TP1</span><span class="level-val" style="color:var(--green)">${fmtPrice(r.take_profit1)}</span></div>
+        <div class="level-item"><span class="level-label">TP2</span><span class="level-val" style="color:var(--green)">${fmtPrice(r.take_profit2)}</span></div>
+      </div>
+      <div class="capital-line">
+        <span>💰 $${r.capital_usd} × ${r.leverage_rec}x</span>
+        <span style="color:var(--green);font-weight:bold;">= $${r.position_size}</span>
+      </div>
+    </div>` : '';
+
+  // Strategy icons map
+  const stratIcons = {
+    'EMA Trend': '📈', 'Bollinger': '📊', 'MACD': '〽️', 'Supertrend': '🔀',
+    'StochRSI': '📉', 'Breakout': '💥', 'VWAP': '⚖️', 'ADX': '💪'
+  };
+  const stratHtml = (r.strategy_details && r.strategy_details.length) ? `
+    <div style="margin-top:8px;padding:6px 8px;background:rgba(255,255,255,0.03);border-radius:6px;">
+      <div style="color:var(--dim);font-size:10px;margin-bottom:4px;">СТРАТЕГІЇ (${r.strategy_long}L / ${r.strategy_short}S з ${r.strategy_details.length})</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;">
+        ${r.strategy_details.map(s => {
+          const icon = stratIcons[s.name] || '⚙️';
+          const color = s.signal === 'long' ? 'var(--green)' : s.signal === 'short' ? 'var(--red)' : 'var(--dim)';
+          const bg = s.signal !== 'neutral' ? 'rgba(255,255,255,0.06)' : 'transparent';
+          const arrow = s.signal === 'long' ? '▲' : s.signal === 'short' ? '▼' : '—';
+          return `<div style="font-size:11px;padding:2px 6px;border-radius:4px;background:${bg};color:${color}" title="${s.note}">
+            ${icon}${s.name.replace(' Trend','')} ${arrow}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>` : '';
+
+  const notesHtml = r.notes && r.notes.length
+    ? `<div class="notes">${r.notes.map(n => `<div class="note">⚠️ ${n}</div>`).join('')}</div>`
+    : '';
+
+  return `
+    <div class="signal-card ${cls}">
+      <div class="signal-header">
+        <span class="symbol">${rankBadge}${sym}${knife}</span>
+        <span class="score" style="color:${scoreColor(r.score)}">${r.score}%</span>
+      </div>
+      <div class="score-bar-wrap">
+        <div class="score-bar">
+          <div class="score-fill ${cls}" style="width:${r.score}%"></div>
+        </div>
+      </div>
+      ${directionHtml(r.direction)}
+      <div class="indicators">
+        <div class="ind-item">
+          <div class="ind-label">RSI</div>
+          <div class="ind-value" style="color:${rsiColor(r.rsi)}">${r.rsi.toFixed(1)}</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-label">Volume</div>
+          <div class="ind-value" style="color:${volColor(r.volume_ratio)}">×${r.volume_ratio.toFixed(1)}</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-label">Formation</div>
+          <div class="ind-value" style="font-size:11px">${r.formation}</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-label">Strategies</div>
+          <div class="ind-value">${r.strategy_count}/8</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-label">Price</div>
+          <div class="ind-value">${fmtPrice(r.price)}</div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-label">ATR</div>
+          <div class="ind-value" style="font-size:11px">${fmtPrice(r.atr)}</div>
+        </div>
+      </div>
+      ${stratHtml}
+      ${levels}
+      ${notesHtml}
+    </div>`;
+}
+
+// ── Status ────────────────────────────────────────────────────────────────────
+
+async function loadStatus() {
+  const resp = await fetch(`${API}/status`);
+  if (!resp.ok) return;
+  const d = await resp.json();
+
+  document.getElementById('balance').textContent = `$${(d.balance || 0).toFixed(2)}`;
+
+  const btc = d.btc || {};
+  const btcEl = document.getElementById('btcTrend');
+  if (btc.direction === 'up') { btcEl.textContent = '🟢 Зростає'; btcEl.className = 'value green'; }
+  else if (btc.direction === 'down') { btcEl.textContent = '🔴 Падає'; btcEl.className = 'value red'; }
+  else { btcEl.textContent = '⬜ Бічний'; btcEl.className = 'value'; }
+  document.getElementById('btcPct').textContent = `${btc.pct >= 0 ? '+' : ''}${(btc.pct||0).toFixed(2)}%${btc.black_swan ? ' ⚡ BLACK SWAN' : ''}`;
+
+  const fg = d.fear_greed || {};
+  const fgEl = document.getElementById('fgValue');
+  const fgVal = fg.value || 50;
+  fgEl.textContent = fgVal;
+  fgEl.className = 'value ' + (fgVal < 30 ? 'red' : fgVal < 50 ? 'yellow' : 'green');
+  document.getElementById('fgLabel').textContent = fg.label || '';
+
+  const guard = d.guard || {};
+  const pctUsed = guard.pct_used || 0;
+  const guardEl = document.getElementById('guardStatus');
+  if (guard.blocked) { guardEl.textContent = '🚫 ЗАБЛОКОВАНО'; guardEl.className = 'value red'; }
+  else { guardEl.textContent = `✅ $${(guard.remaining||0).toFixed(2)} залишилось`; guardEl.className = 'value green'; }
+  const bar = document.getElementById('guardBar');
+  bar.style.width = `${pctUsed}%`;
+  bar.className = 'guard-fill' + (pctUsed > 80 ? ' danger' : pctUsed > 50 ? ' warn' : '');
+  document.getElementById('guardSub').textContent = `-$${(guard.daily_loss||0).toFixed(2)} / $${(guard.limit||0).toFixed(2)}`;
+
+  const gl = d.global || {};
+  document.getElementById('btcDom').textContent = `${gl.btc_dominance || '?'}%`;
+  const mktChg = gl.market_cap_change_24h || 0;
+  const mktEl = document.getElementById('mktChg');
+  mktEl.textContent = `Ринок 24h: ${mktChg >= 0 ? '+' : ''}${mktChg.toFixed(2)}%`;
+  mktEl.style.color = mktChg >= 0 ? 'var(--green)' : 'var(--red)';
+}
+
+// ── Scan ──────────────────────────────────────────────────────────────────────
+
+async function loadScan() {
+  const resp = await fetch(`${API}/scan`);
+  const strong_min = 68, partial_min = 48;
+  if (!resp.ok) {
+    if (resp.status === 403) {
+      document.getElementById('strongGrid').innerHTML = '<div class="empty">🚫 Торгівля заблокована</div>';
+    }
+    return;
+  }
+  const signals = await resp.json();
+
+  const strong  = signals.filter(r => r.score >= strong_min);
+  const partial = signals.filter(r => r.score >= partial_min && r.score < strong_min);
+
+  document.getElementById('strongCount').textContent = strong.length;
+  document.getElementById('partialCount').textContent = partial.length;
+
+  const strongGrid = document.getElementById('strongGrid');
+  const partialGrid = document.getElementById('partialGrid');
+
+  if (strong.length) {
+    strongGrid.innerHTML = strong.map((r, i) => signalCard(r, i+1)).join('');
+  } else {
+    strongGrid.innerHTML = '<div class="empty" style="font-style:italic;color:var(--dim)">Немає. Заповідь #3: очікування — це торгівля.</div>';
+  }
+
+  partialGrid.innerHTML = partial.map(r => signalCard(r, 0)).join('');
+}
+
+// ── Journal ───────────────────────────────────────────────────────────────────
+
+async function loadJournal() {
+  const resp = await fetch(`${API}/journal`);
+  if (!resp.ok) return;
+  const d = await resp.json();
+  const stats = d.stats || {};
+  const open = d.open_trades || [];
+  const closed = (d.recent_closed || []).slice(-5).reverse();
+
+  const pnlSign = (stats.total_pnl || 0) >= 0 ? '+' : '';
+  const pnlColor = (stats.total_pnl || 0) >= 0 ? 'var(--green)' : 'var(--red)';
+  const balColor = (stats.balance || 0) >= 20 ? 'var(--green)' : 'var(--red)';
+
+  let html = `<div class="journal-grid">
+    <div class="status-card">
+      <div class="label">Баланс</div>
+      <div class="value" style="color:${balColor}">$${(stats.balance||0).toFixed(2)}</div>
+    </div>
+    <div class="status-card">
+      <div class="label">Win Rate</div>
+      <div class="value cyan">${stats.win_rate || 0}%</div>
+      <div class="sub">${stats.total_trades || 0} угод</div>
+    </div>
+    <div class="status-card">
+      <div class="label">Total PnL</div>
+      <div class="value" style="color:${pnlColor}">${pnlSign}$${(stats.total_pnl||0).toFixed(2)}</div>
+    </div>
+  </div>`;
+
+  if (open.length) {
+    html += `<div class="section-title" style="margin-top:20px;">📊 Відкриті позиції (${open.length})</div>
+      <div class="journal-grid">`;
+    for (const t of open) {
+      html += `<div class="trade-card">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:16px;font-weight:bold;color:var(--accent)">${t.symbol.replace('/USDT','')}</span>
+          <span class="direction ${t.direction}">${t.direction.toUpperCase()}</span>
+        </div>
+        <div>Вхід: ${fmtPrice(t.entry_price)}</div>
+        <div>Розмір: $${t.amount_usd} × ${t.leverage || 10}x</div>
+        <div style="color:var(--dim);font-size:11px;margin-top:4px">${(t.opened_at||'').slice(0,10)}</div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  if (closed.length) {
+    html += `<div class="section-title" style="margin-top:20px;">📋 Останні угоди</div>
+      <div class="journal-grid">`;
+    for (const t of closed) {
+      const pnl = t.pnl || 0;
+      const pColor = pnl >= 0 ? 'var(--green)' : 'var(--red)';
+      const pSign = pnl >= 0 ? '+' : '';
+      html += `<div class="trade-card">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+          <span style="font-size:15px;font-weight:bold;color:var(--accent)">${t.symbol.replace('/USDT','')}</span>
+          <span class="pnl" style="color:${pColor}">${pSign}$${pnl.toFixed(2)}</span>
+        </div>
+        <div>${t.direction.toUpperCase()}  ${fmtPrice(t.entry_price)} → ${fmtPrice(t.close_price)}</div>
+        <div style="color:var(--dim);font-size:11px;margin-top:4px">${(t.closed_at||'').slice(0,10)}</div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  if (d.gemini_format) {
+    html += `<div style="margin-top:20px;padding:12px;background:var(--surface2);border-radius:8px;">
+      <div style="color:var(--dim);font-size:11px;margin-bottom:6px;">Gemini-формат (для AI-чату):</div>
+      <code style="font-size:11px;color:var(--accent)">${d.gemini_format}</code>
+    </div>`;
+  }
+
+  document.getElementById('journalContent').innerHTML = html;
+}
+
+// ── Rules ──────────────────────────────────────────────────────────────────────
+
+async function loadRules() {
+  const resp = await fetch(`${API}/rules`);
+  if (!resp.ok) return;
+  const d = await resp.json();
+
+  document.getElementById('rulesList').innerHTML =
+    d.commandments.map((r, i) =>
+      `<div style="padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="color:var(--accent)">${i+1}.</span> ${r}
+       </div>`
+    ).join('');
+
+  document.getElementById('forbiddenList').innerHTML =
+    d.forbidden.map(f =>
+      `<div style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--red)">✗ ${f}</div>`
+    ).join('');
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+
+function showTab(name) {
+  ['scan','altcoins','journal','ai','rules','chat'].forEach(t => {
+    document.getElementById(`tab-${t}`).style.display = t === name ? '' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach((btn, i) => {
+    btn.classList.toggle('active', ['scan','altcoins','journal','ai','rules','chat'][i] === name);
+  });
+  if (name === 'journal') loadJournal();
+  if (name === 'rules') loadRules();
+  if (name === 'altcoins' && document.getElementById('altStrongGrid').innerHTML.includes('Сканувати')) loadAltcoins();
+}
+
+// ── Altcoins <$1 scan ─────────────────────────────────────────────────────────
+
+async function loadAltcoins() {
+  const maxPrice = document.getElementById('altMaxPrice').value;
+  const minVol = document.getElementById('altMinVol').value;
+  const loading = document.getElementById('altLoading');
+  const strongGrid = document.getElementById('altStrongGrid');
+  const partialGrid = document.getElementById('altPartialGrid');
+
+  loading.style.display = 'block';
+  strongGrid.innerHTML = '';
+  partialGrid.innerHTML = '';
+
+  try {
+    const url = `${API}/scan/altcoins?max_price=${maxPrice}&min_volume_usd=${minVol}&limit=60`;
+    const resp = await fetch(url);
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      strongGrid.innerHTML = `<div class="empty" style="color:var(--red)">❌ ${err.detail || 'Помилка сканування'}</div>`;
+      return;
+    }
+    const signals = await resp.json();
+    document.getElementById('altCount').textContent = signals.length;
+
+    const strong  = signals.filter(r => r.score >= 68);
+    const partial = signals.filter(r => r.score >= 48 && r.score < 68);
+    document.getElementById('altStrongCount').textContent = strong.length;
+    document.getElementById('altPartialCount').textContent = partial.length;
+
+    strongGrid.innerHTML = strong.length
+      ? strong.map((r, i) => signalCard(r, i+1)).join('')
+      : '<div class="empty" style="color:var(--dim)">Поки немає сильних сигналів серед дешевих альтів</div>';
+    partialGrid.innerHTML = partial.map(r => signalCard(r, 0)).join('');
+  } catch(e) {
+    strongGrid.innerHTML = `<div class="empty" style="color:var(--red)">❌ ${e.message}</div>`;
+  } finally {
+    loading.style.display = 'none';
+  }
+}
+
+// ── AI Analysis ───────────────────────────────────────────────────────────────
+
+function quickAI(symbol) {
+  document.getElementById('aiSymbol').value = symbol;
+  runAI();
+}
+
+async function runAI() {
+  const symbol = document.getElementById('aiSymbol').value.trim() || 'BTCUSDT';
+  const question = document.getElementById('aiQuestion').value.trim();
+  const btn = document.getElementById('aiBtn');
+  const result = document.getElementById('aiResult');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Аналізую...';
+  result.innerHTML = '<span style="color:var(--yellow)">⏳ Gemini аналізує ринок...</span>';
+
+  try {
+    const resp = await fetch(`${API}/ai/analyze`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({symbol, question: question || null}),
+    });
+    const d = await resp.json();
+    if (!resp.ok) {
+      result.innerHTML = `<span style="color:var(--red)">❌ ${d.detail || 'Помилка'}</span>`;
+      return;
+    }
+    const dir = d.btc_dir === 'up' ? '🟢' : d.btc_dir === 'down' ? '🔴' : '⬜';
+    result.innerHTML = `<div style="color:var(--dim);font-size:11px;margin-bottom:12px">
+  ${d.symbol} · ${fmtPrice(d.price)} USDT · RSI ${d.rsi?.toFixed(1)} · Vol ${d.vol_ratio?.toFixed(2)}x · BTC ${dir}
+</div><div style="color:var(--text)">${escHtml(d.analysis)}</div>`;
+  } catch(e) {
+    result.innerHTML = `<span style="color:var(--red)">❌ Мережева помилка: ${e.message}</span>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⚡ Аналізувати';
+  }
+}
+
+function escHtml(t) {
+  return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── Auto-refresh timer ─────────────────────────────────────────────────────────
+
+function startTimer(seconds) {
+  countdown = seconds;
+  const el = document.getElementById('timer');
+  clearInterval(autoRefreshInterval);
+  autoRefreshInterval = setInterval(() => {
+    countdown--;
+    el.textContent = `Оновлення через ${countdown}с`;
+    if (countdown <= 0) {
+      clearInterval(autoRefreshInterval);
+      loadAll();
+    }
+  }, 1000);
+}
+
+// ── Main loader ───────────────────────────────────────────────────────────────
+
+async function loadAll() {
+  const btn = document.getElementById('refreshBtn');
+  const loading = document.getElementById('loading');
+  btn.disabled = true;
+  loading.style.display = 'flex';
+
+  try {
+    await Promise.all([loadStatus(), loadScan(), loadJournalBalance()]);
+    startTimer(300); // auto-refresh every 5 min
+  } catch(e) {
+    console.error(e);
+  } finally {
+    btn.disabled = false;
+    loading.style.display = 'none';
+  }
+}
+
+// Баланс з журналу для статус-бару (без повного рендеру журналу)
+async function loadJournalBalance() {
+  try {
+    const resp = await fetch(`${API}/journal`);
+    if (!resp.ok) return;
+    const d = await resp.json();
+    const bal = d.stats?.balance ?? null;
+    if (bal !== null) {
+      document.getElementById('balance').textContent = `$${bal.toFixed(2)}`;
+    }
+  } catch(e) { /* silent */ }
+}
+
+// ── Chat ───────────────────────────────────────────────────────────────────────
+
+const chatHistory = [];
+
+function chatAppend(role, text, isAction) {
+  const box = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  const isUser = role === 'user';
+  div.style.cssText = `display:flex;justify-content:${isUser ? 'flex-end' : 'flex-start'};`;
+  const bubble = document.createElement('div');
+  bubble.style.cssText = `
+    max-width:85%;padding:10px 14px;border-radius:${isUser ? '14px 14px 4px 14px' : '14px 14px 14px 4px'};
+    background:${isUser ? 'var(--accent)' : 'var(--surface2)'};
+    color:${isUser ? 'var(--bg)' : 'var(--text)'};
+    font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word;
+  `;
+  // render **bold**
+  bubble.innerHTML = escHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  div.appendChild(bubble);
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+async function chatSend(preset) {
+  const input = document.getElementById('chatInput');
+  const msg = preset || input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  chatAppend('user', msg);
+  chatHistory.push({role: 'user', content: msg});
+
+  const btn = document.getElementById('chatBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳';
+
+  // typing indicator
+  const box = document.getElementById('chatMessages');
+  const typing = document.createElement('div');
+  typing.id = 'chatTyping';
+  typing.style.cssText = 'color:var(--dim);font-size:12px;padding:4px 0;';
+  typing.textContent = '✍️ JESSIE думає...';
+  box.appendChild(typing);
+  box.scrollTop = box.scrollHeight;
+
+  try {
+    const resp = await fetch(`${API}/chat`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({message: msg, history: chatHistory.slice(-6)}),
+    });
+    const d = await resp.json();
+    typing.remove();
+
+    if (d.action === 'refresh') {
+      chatAppend('jessie', d.text);
+      loadAll();
+    } else if (d.action === 'tab_journal') {
+      chatAppend('jessie', d.text);
+      showTab('journal');
+    } else if (d.action === 'tab_scan') {
+      chatAppend('jessie', d.text);
+      showTab('scan');
+    } else if (d.action === 'tab_rules') {
+      chatAppend('jessie', d.text);
+      showTab('rules');
+    } else {
+      chatAppend('jessie', d.text || d.detail || '❌ Порожня відповідь');
+    }
+    chatHistory.push({role: 'assistant', content: d.text || ''});
+  } catch(e) {
+    typing.remove();
+    chatAppend('jessie', `❌ Помилка: ${e.message}`);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⚡ Надіслати';
+  }
+}
+
+// Auto-load on page open
+loadAll();
+</script>
+</body>
+</html>

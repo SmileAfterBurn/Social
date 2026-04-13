@@ -31,6 +31,8 @@ class SignalResult:
     leverage_rec: int = 10
     position_size: float = 0.0
     notes: list[str] = field(default_factory=list)
+    strategy_details: list[dict] = field(default_factory=list)  # [{name, signal, score, note}]
+    is_knife: bool = False          # 🔪 mean-reversion проти тренду
     # Ф'ючерсні метадані
     funding: Optional[float] = None           # funding rate %
     ls_long: Optional[float] = None           # % лонгів
@@ -68,47 +70,46 @@ def calc_signal_score(
     score = 0
 
     # ── Strategy confluence (max 35) — найважливіше ──────────────────────
-    if strategy_count >= 5:
+    # v3.5: 8 стратегій (EMA, BB, MACD, SuperTrend, StochRSI, Breakout, VWAP, ADX)
+    if strategy_count >= 7:
         score += 35
-    elif strategy_count >= 4:
+    elif strategy_count >= 6:
+        score += 32
+    elif strategy_count >= 5:
         score += 28
+    elif strategy_count >= 4:
+        score += 24
     elif strategy_count >= 3:
-        score += 22
+        score += 18
     elif strategy_count >= 2:
-        score += 14
+        score += 12
     elif strategy_count >= 1:
-        score += 6
+        score += 5
 
-    # ── RSI momentum (max 30) — бали навіть для помірних зон ────────────
-    # v3.4: mean-reversion (RSI extreme проти напрямку) різко обмежено.
-    # Для скальпінгу ловити ножі (RSI<20 → long) — головна причина втрат.
+    # ── RSI momentum (max 30) ────────────────────────────────────────────
+    # v3.5: mean-reversion ДОЗВОЛЕНО (🔪 ловля ножів — користувач вирішує).
+    # RSI extreme + confluence = сигнал є, але позначається як knife catch.
     strong_confluence = strategy_count >= 3
     if is_long:
-        if rsi < 30:
-            # MEAN-REVERSION ZONE — небезпечно для скальпінгу!
-            # Тільки якщо ≥4 стратегії підтверджують (сильний розворот)
-            if strategy_count >= 4:
-                score += 15          # обережний бонус, було 24-30
-            elif strategy_count >= 3:
-                score += 8           # мінімальний
-            # else: 0 — не даємо балів, ринок падає
+        if rsi < 20:
+            score += 30          # перепродано — відскок
+        elif rsi < 30:
+            score += 24
         elif rsi < 40:
-            score += 16          # помірний oversold — є потенціал
+            score += 16          # помірний oversold
         elif rsi < 55:
-            score += 22          # v3.4: sweet spot для trend-long
+            score += 10          # нейтраль з нахилом на long
         elif rsi > 70:
             score -= 3 if strong_confluence else 8
     else:  # short
-        if rsi > 70:
-            # MEAN-REVERSION ZONE — обережно
-            if strategy_count >= 4:
-                score += 15
-            elif strategy_count >= 3:
-                score += 8
+        if rsi > 80:
+            score += 30          # перекуплено — відкат
+        elif rsi > 70:
+            score += 24
         elif rsi > 60:
             score += 16          # помірний overbought
         elif rsi > 45:
-            score += 22          # v3.4: sweet spot для trend-short
+            score += 10          # нейтраль з нахилом на short
         elif rsi < 30:
             score -= 3 if strong_confluence else 8
 
