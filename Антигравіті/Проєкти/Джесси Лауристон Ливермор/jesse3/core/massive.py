@@ -12,6 +12,7 @@ import json
 import logging
 import time
 import urllib.request
+from datetime import date, timedelta
 from typing import Optional
 
 from .config import cfg
@@ -114,7 +115,7 @@ def fetch_crypto_aggregates(
         params["to"] = to_date
 
     data = _request(
-        f"/aggs/ticker/{ticker}/range/{multiplier}/{timespan}/{from_date or '2020-01-01'}/{to_date or '2099-12-31'}",
+        f"/aggs/ticker/{ticker}/range/{multiplier}/{timespan}/{from_date or (date.today() - timedelta(days=180)).isoformat()}/{to_date or date.today().isoformat()}",
         params,
     )
     if data and isinstance(data, dict) and "results" in data:
@@ -151,7 +152,7 @@ def fetch_stock_aggregates(
     """Stock OHLCV bars."""
     params = {"adjusted": "true", "sort": "desc", "limit": str(limit)}
     data = _request(
-        f"/aggs/ticker/{ticker}/range/{multiplier}/{timespan}/{from_date or '2020-01-01'}/{to_date or '2099-12-31'}",
+        f"/aggs/ticker/{ticker}/range/{multiplier}/{timespan}/{from_date or (date.today() - timedelta(days=180)).isoformat()}/{to_date or date.today().isoformat()}",
         params,
     )
     if data and isinstance(data, dict) and "results" in data:
@@ -177,7 +178,7 @@ def fetch_sma(
 ) -> Optional[float]:
     """Simple Moving Average from Massive API."""
     data = _request(
-        f"/aggs/ticker/{ticker}/range/1/{timespan}/2020-01-01/2099-12-31/sma",
+        f"/aggs/ticker/{ticker}/range/1/{timespan}/{(date.today() - timedelta(days=180)).isoformat()}/{date.today().isoformat()}/sma",
         {"window": str(window), "limit": str(limit), "series_type": "close"},
     )
     if data and isinstance(data, dict) and "results" in data and "values" in data["results"]:
@@ -191,7 +192,7 @@ def fetch_ema(
 ) -> Optional[float]:
     """Exponential Moving Average from Massive API."""
     data = _request(
-        f"/aggs/ticker/{ticker}/range/1/{timespan}/2020-01-01/2099-12-31/ema",
+        f"/aggs/ticker/{ticker}/range/1/{timespan}/{(date.today() - timedelta(days=180)).isoformat()}/{date.today().isoformat()}/ema",
         {"window": str(window), "limit": str(limit), "series_type": "close"},
     )
     if data and isinstance(data, dict) and "results" in data and "values" in data["results"]:
@@ -205,7 +206,7 @@ def fetch_rsi(
 ) -> Optional[float]:
     """RSI from Massive API."""
     data = _request(
-        f"/aggs/ticker/{ticker}/range/1/{timespan}/2020-01-01/2099-12-31/rsi",
+        f"/aggs/ticker/{ticker}/range/1/{timespan}/{(date.today() - timedelta(days=180)).isoformat()}/{date.today().isoformat()}/rsi",
         {"window": str(window), "limit": str(limit), "series_type": "close"},
     )
     if data and isinstance(data, dict) and "results" in data and "values" in data["results"]:
@@ -224,7 +225,7 @@ def fetch_macd(
 ) -> Optional[dict[str, float]]:
     """MACD from Massive API. Returns {value, signal, histogram}."""
     data = _request(
-        f"/aggs/ticker/{ticker}/range/1/{timespan}/2020-01-01/2099-12-31/macd",
+        f"/aggs/ticker/{ticker}/range/1/{timespan}/{(date.today() - timedelta(days=180)).isoformat()}/{date.today().isoformat()}/macd",
         {
             "short_window": str(short_window),
             "long_window": str(long_window),
